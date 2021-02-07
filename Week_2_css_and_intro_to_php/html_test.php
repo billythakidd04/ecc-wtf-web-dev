@@ -10,12 +10,18 @@
     <title>
         this is a title
     </title>
+    <style>
+        p {
+            color: green;
+        }
+    </style>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
     <div name="intro">
         <!--This is my intro section i have stuff here-->
-        <h3>This is my intro section!</h3>
+        <h3 style="color: red;">This is my intro section!</h3>
         <p>Aint it nice? have some lorem ipsum</p>
         <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo sunt est voluptatem rerum quisquam, accusantium
