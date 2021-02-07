@@ -2,20 +2,18 @@
 <html>
 
 <head>
+    <title>
+        this is a title
+    </title>
     <!-- <style>
+        p {
+            color: green;
+        }
         div[name="intro"] {
             background: red;
         }
     </style> -->
-    <title>
-        this is a title
-    </title>
-    <style>
-        p {
-            color: green;
-        }
-    </style>
-    <link rel="stylesheet" href="css/styles.css">
+    <!-- <link rel="stylesheet" href="css/styles.css"> -->
 </head>
 
 <body>
