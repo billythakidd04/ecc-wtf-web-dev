@@ -1,6 +1,6 @@
 <?php
 
-function createTable()
+function createGroups()
 {
     // list of student names
     $students = array(

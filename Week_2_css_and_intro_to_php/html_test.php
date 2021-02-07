@@ -24,6 +24,9 @@
         </p>
         <ul>
             <li>thing</li>
+            <li>thing</li>
+            <li>thing</li>
+            <li>thing</li>
         </ul>
     </div>
     <div name="tables">
@@ -34,7 +37,11 @@
                 <th></th>
                 <?php
                 require_once('groups_maker.php');
-                $groups = createTable();
+                $groups = createGroups();
+
+                // echo '<pre>';
+                // var_dump($groups);
+                // echo '</pre>';
 
                 foreach ($groups[0] as $k => $v) {
                     echo "<th>Member " . ($k + 1) . "</th>";
@@ -46,10 +53,10 @@
                 ?>
                     <tr>
                         <?php
-                        echo ("<td>Group " . ($id + 1) . "</td>");
+                        echo ("<td>Group " . ($key + 1) . "</td>");
 
                         foreach ($value as $id => $student) {
-                            echo "<td>$student</td>";
+                            echo "<td id='student_$id'>$student</td>";
                         } ?>
                     </tr>
                 <?php
