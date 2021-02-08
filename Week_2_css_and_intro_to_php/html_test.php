@@ -40,7 +40,7 @@
             <thead>
                 <th></th>
                 <?php
-                require_once('groups_maker.php');
+                require_once('src/groups_maker.php');
                 $groups = createGroups();
 
                 // echo '<pre>';
