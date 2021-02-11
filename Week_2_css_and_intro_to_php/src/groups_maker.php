@@ -16,6 +16,8 @@ function createGroups()
         'Lainson, Christopher',
         'Ricci Jr., Vincent',
         'Schrecongost, Margaret',
+        'Quebral, Alicia',
+        'Saulon, William',
     );
 
     // create empty groups array
