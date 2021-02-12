@@ -1,3 +1,4 @@
+<?php error_reporting(E_STRICT);?>
 <!doctype html>
 <html>
 
@@ -32,31 +33,31 @@
             <thead>
                 <th></th>
                 <?php
-                require_once('src/groups_maker.php');
-                $groups = createGroups();
+                // require_once('src/groups_maker.php');
+                // $groups = createGroups();
 
                 // echo '<pre>';
                 // var_dump($groups);
                 // echo '</pre>';
 
-                foreach ($groups[0] as $k => $v) {
-                    echo "<th>Member " . ($k + 1) . "</th>";
-                } ?>
+                // foreach ($groups[0] as $k => $v) {
+                //     echo "<th>Member " . ($k + 1) . "</th>";
+                // } ?>
             </thead>
             <tbody>
                 <?php
-                foreach ($groups as $key => $value) {
-                ?>
-                    <tr>
-                        <?php
-                        echo ("<td>Group " . ($key + 1) . "</td>");
-
-                        foreach ($value as $id => $student) {
-                            echo "<td id='student_$id'>$student</td>";
-                        } ?>
-                    </tr>
+                // foreach ($groups as $key => $value) {
+                // ?>
+                <!-- //     <tr> -->
                 <?php
-                }
+                //         echo ("<td>Group " . ($key + 1) . "</td>");
+
+                //         foreach ($value as $id => $student) {
+                //             echo "<td id='student_$id'>$student</td>";
+                //         } ?>
+                <!-- //     </tr> -->
+                <?php
+                // }
                 ?>
             </tbody>
         </table>
@@ -81,21 +82,34 @@
     </div>
     <div id="form" name="form">
         <form method="post" name='testform'>
-            <input type="text" name="firstName" placeholder="first name">
-            <input type="text" name="lastName" placeholder="Enter you last name"></br>
+            <input type="text" name="firstName" placeholder="first name"/>
+            <input type="text" name="lastName" placeholder="Enter you last name"'></br>
             <input type="checkbox" name="things_i_like[]" value="tv"/>Tv</br>
             <input type="checkbox" name="things_i_like[]" value="movies"/>movies</br>
             <input type="checkbox" name="things_i_like[]" value="music"/>music</br>
             <input type="checkbox" name="things_i_like[]" value="games"/>games</br>
             <input type="checkbox" name="things_i_like[]" value="computers"/>computers</br>
-            <input type="submit" name="submit-btn" value="Go">
+            <input type="submit" name="submit-btn" value="Go"/>
         </form>
     </div>
 
     <?php
     if (isset($_POST['submit-btn'])) {
-        $first = $_POST['firstName'];
-        $last = $_POST['lastName'];
+        $first = '';
+        $last = '';
+
+        if(!empty($_POST['firstName'])){
+            $first = $_POST['firstName'];
+        }else {
+            echo "<h1 style='color: red'>First Name cannot be empty!!</h1>";
+        }
+
+        if(isset($_POST['lastName']) && $_POST['lastName'] != ''){
+            $last = $_POST['lastName'];
+        }else {
+            echo "<h1 style='color: red'>Last Name cannot be empty!!</h1>";
+        }
+
         echo "<p>Full name entered:" . $first . ' ' . $last . "</p>";
         echo "Some things you like are:";
         foreach ($_POST['things_i_like'] as $key => $value) {
