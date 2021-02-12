@@ -1,4 +1,6 @@
-<?php error_reporting(E_STRICT); ?>
+<?php
+ini_set('display_errors', 1);
+?>
 <!doctype html>
 <html>
 
@@ -33,34 +35,30 @@
             <thead>
                 <th></th>
                 <?php
-                // require_once('src/groups_maker.php');
-                // $groups = createGroups();
+                require_once('src/groups_maker.php');
+                $groups = createGroups();
 
+                // Debugging
                 // echo '<pre>';
                 // var_dump($groups);
                 // echo '</pre>';
 
-                // foreach ($groups[0] as $k => $v) {
-                //     echo "<th>Member " . ($k + 1) . "</th>";
-                // } 
+                foreach ($groups[0] as $k => $v) {
+                    echo "<th>Member " . ($k + 1) . "</th>";
+                }
                 ?>
             </thead>
             <tbody>
                 <?php
-                // foreach ($groups as $key => $value) {
-                // 
-                ?>
-                <!-- //     <tr> -->
-                <?php
-                //         echo ("<td>Group " . ($key + 1) . "</td>");
+                foreach ($groups as $key => $value) {
+                    echo '<tr>';
+                    echo ("<td>Group " . ($key + 1) . "</td>");
 
-                //         foreach ($value as $id => $student) {
-                //             echo "<td id='student_$id'>$student</td>";
-                //         } 
-                ?>
-                <!-- //     </tr> -->
-                <?php
-                // }
+                    foreach ($value as $id => $student) {
+                        echo "<td id='student_$id'>$student</td>";
+                    }
+                    echo '</tr>';
+                }
                 ?>
             </tbody>
         </table>
@@ -85,42 +83,42 @@
     </div>
 
     <div id="form" name="form">
-    <?php
-    if (isset($_POST['submit-btn'])) {
-        $first = '';
-        $last = '';
+        <?php
+        if (isset($_POST['submit-btn'])) {
+            $first = '';
+            $last = '';
 
-        if (!empty($_POST['firstName'])) {
-            $first = $_POST['firstName'];
-        } else {
-            echo "<h1 style='color: red'>First Name cannot be empty!!</h1>";
-        }
+            if (!empty($_POST['firstName'])) {
+                $first = $_POST['firstName'];
+            } else {
+                echo "<h1 style='color: red'>First Name cannot be empty!!</h1>";
+            }
 
-        if (!empty($_POST['lastName'])) {
-            $last = $_POST['lastName'];
-        } else {
-            echo "<h1 style='color: red'>Last Name cannot be empty!!</h1>";
-        }
+            if (!empty($_POST['lastName'])) {
+                $last = $_POST['lastName'];
+            } else {
+                echo "<h1 style='color: red'>Last Name cannot be empty!!</h1>";
+            }
 
-        echo "<p>Full name entered:" . $first . ' ' . $last . "</p>";
+            echo "<p>Full name entered:" . $first . ' ' . $last . "</p>";
 
-        if (count($_POST['things_i_like']) > 0) {
-            echo "Some things you like are:";
-            foreach ($_POST['things_i_like'] as $key => $value) {
-                echo "<li>" . $value . "</li>";
+            if (count($_POST['things_i_like']) > 0) {
+                echo "Some things you like are:";
+                foreach ($_POST['things_i_like'] as $key => $value) {
+                    echo "<li>" . $value . "</li>";
+                }
             }
         }
-    } 
-    ?>
+        ?>
 
         <form method="post" name='testform'>
-            <input type="text" name="firstName" <?=($first ? 'value="'.$first.'"' : '');?> placeholder="first name" />
-            <input type="text" name="lastName" <?=($last ? 'value="'.$last.'"' : '');?> placeholder="Enter you last name"'></br>
-            <input type="checkbox" name="things_i_like[]" <?=($_POST['things_i_like'][0]? 'checked' : '');?> value="tv"/>Tv</br>
-            <input type="checkbox" name="things_i_like[]" <?=($_POST['things_i_like'][1]? 'checked' : '');?> value="movies"/>movies</br>
-            <input type="checkbox" name="things_i_like[]" <?=($_POST['things_i_like'][2]? 'checked' : '');?> value="music"/>music</br>
-            <input type="checkbox" name="things_i_like[]" <?=($_POST['things_i_like'][3]? 'checked' : '');?> value="games"/>games</br>
-            <input type="checkbox" name="things_i_like[]" <?=($_POST['things_i_like'][4]? 'checked' : '');?> value="computers"/>computers</br>
+            <input type="text" name="firstName" <?= ($first ? 'value="' . $first . '"' : ''); ?> placeholder="first name" />
+            <input type="text" name="lastName" <?= ($last ? 'value="' . $last . '"' : ''); ?> placeholder="Enter you last name"'></br>
+            <input type="checkbox" name="things_i_like[]" <?= ($_POST['things_i_like'][0] ? 'checked' : ''); ?> value="tv"/>Tv</br>
+            <input type="checkbox" name="things_i_like[]" <?= ($_POST['things_i_like'][1] ? 'checked' : ''); ?> value="movies"/>movies</br>
+            <input type="checkbox" name="things_i_like[]" <?= ($_POST['things_i_like'][2] ? 'checked' : ''); ?> value="music"/>music</br>
+            <input type="checkbox" name="things_i_like[]" <?= ($_POST['things_i_like'][3] ? 'checked' : ''); ?> value="games"/>games</br>
+            <input type="checkbox" name="things_i_like[]" <?= ($_POST['things_i_like'][4] ? 'checked' : ''); ?> value="computers"/>computers</br>
             <input type="submit" name="submit-btn" value="Go"/>
         </form>
     </div>
