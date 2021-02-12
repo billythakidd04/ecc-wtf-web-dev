@@ -1,4 +1,4 @@
-<?php error_reporting(E_STRICT);?>
+<?php error_reporting(E_STRICT); ?>
 <!doctype html>
 <html>
 
@@ -42,19 +42,22 @@
 
                 // foreach ($groups[0] as $k => $v) {
                 //     echo "<th>Member " . ($k + 1) . "</th>";
-                // } ?>
+                // } 
+                ?>
             </thead>
             <tbody>
                 <?php
                 // foreach ($groups as $key => $value) {
-                // ?>
+                // 
+                ?>
                 <!-- //     <tr> -->
                 <?php
                 //         echo ("<td>Group " . ($key + 1) . "</td>");
 
                 //         foreach ($value as $id => $student) {
                 //             echo "<td id='student_$id'>$student</td>";
-                //         } ?>
+                //         } 
+                ?>
                 <!-- //     </tr> -->
                 <?php
                 // }
@@ -80,42 +83,47 @@
             <img src="https://previews.123rf.com/images/nasaimages/nasaimages1804/nasaimages180400298/98681418-reflection-nebula-the-site-of-star-formation-.jpg">
         </p>
     </div>
-    <div id="form" name="form">
-        <form method="post" name='testform'>
-            <input type="text" name="firstName" placeholder="first name"/>
-            <input type="text" name="lastName" placeholder="Enter you last name"'></br>
-            <input type="checkbox" name="things_i_like[]" value="tv"/>Tv</br>
-            <input type="checkbox" name="things_i_like[]" value="movies"/>movies</br>
-            <input type="checkbox" name="things_i_like[]" value="music"/>music</br>
-            <input type="checkbox" name="things_i_like[]" value="games"/>games</br>
-            <input type="checkbox" name="things_i_like[]" value="computers"/>computers</br>
-            <input type="submit" name="submit-btn" value="Go"/>
-        </form>
-    </div>
 
+    <div id="form" name="form">
     <?php
     if (isset($_POST['submit-btn'])) {
         $first = '';
         $last = '';
 
-        if(!empty($_POST['firstName'])){
+        if (!empty($_POST['firstName'])) {
             $first = $_POST['firstName'];
-        }else {
+        } else {
             echo "<h1 style='color: red'>First Name cannot be empty!!</h1>";
         }
 
-        if(isset($_POST['lastName']) && $_POST['lastName'] != ''){
+        if (!empty($_POST['lastName'])) {
             $last = $_POST['lastName'];
-        }else {
+        } else {
             echo "<h1 style='color: red'>Last Name cannot be empty!!</h1>";
         }
 
         echo "<p>Full name entered:" . $first . ' ' . $last . "</p>";
-        echo "Some things you like are:";
-        foreach ($_POST['things_i_like'] as $key => $value) {
-            echo "<li>".$value."</li>";
+
+        if (count($_POST['things_i_like']) > 0) {
+            echo "Some things you like are:";
+            foreach ($_POST['things_i_like'] as $key => $value) {
+                echo "<li>" . $value . "</li>";
+            }
         }
-    } ?>
+    } 
+    ?>
+
+        <form method="post" name='testform'>
+            <input type="text" name="firstName" <?=($first ? 'value="'.$first.'"' : '');?> placeholder="first name" />
+            <input type="text" name="lastName" <?=($last ? 'value="'.$last.'"' : '');?> placeholder="Enter you last name"'></br>
+            <input type="checkbox" name="things_i_like[]" <?=($_POST['things_i_like'][0]? 'checked' : '');?> value="tv"/>Tv</br>
+            <input type="checkbox" name="things_i_like[]" <?=($_POST['things_i_like'][1]? 'checked' : '');?> value="movies"/>movies</br>
+            <input type="checkbox" name="things_i_like[]" <?=($_POST['things_i_like'][2]? 'checked' : '');?> value="music"/>music</br>
+            <input type="checkbox" name="things_i_like[]" <?=($_POST['things_i_like'][3]? 'checked' : '');?> value="games"/>games</br>
+            <input type="checkbox" name="things_i_like[]" <?=($_POST['things_i_like'][4]? 'checked' : '');?> value="computers"/>computers</br>
+            <input type="submit" name="submit-btn" value="Go"/>
+        </form>
+    </div>
 </body>
 
 </html>
