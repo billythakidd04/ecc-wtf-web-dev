@@ -1,0 +1,41 @@
+body {
+    color: white;
+    background-color: #313131;
+}
+
+div {
+    display: block;
+    text-align: center;
+    width: 50%;
+    background-color: rgb(51, 4, 4);
+    margin: 10px auto;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+img {
+    width: 90%;
+    border-radius: 10px;
+}
+
+table, th, td {
+    border: 2px solid blue;
+    padding: 1px 2px;
+}
+
+table {
+    width: 75%;
+    margin: 0px auto;
+}
+
+ul {
+    text-align: left;
+}
+
+form {
+    text-align: left;
+}
+
+input {
+    margin: 2px 1px;
+}
