@@ -84,8 +84,8 @@ ini_set('display_errors', 1);
 
     <div id="form" name="form">
         <?php
-            $first = '';
-            $last = '';
+        $first = '';
+        $last = '';
         if (isset($_POST['submit-btn'])) {
 
             if (!empty($_POST['firstName'])) {

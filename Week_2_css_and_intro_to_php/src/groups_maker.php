@@ -37,7 +37,7 @@ function createGroups()
 			unset($students[$key]);
 		}
 		// echo "count students = " . count($students).'<br/>';
-		
+
 		// echo 'tmpGroup:<br/><br/><pre>';
 		// var_dump($tmpGroup);
 		// echo '</pre><br/><br/>';
@@ -71,7 +71,7 @@ function getRandomElements(array $inputArray, int $numMembers)
 	}
 
 	// array_rand will cause an infinite loop of warnings if array length < requested number of values
-	if($numMembers > count($inputArray)){
+	if ($numMembers > count($inputArray)) {
 		// just send back the remaining keys
 		return array_keys($inputArray);
 	}
