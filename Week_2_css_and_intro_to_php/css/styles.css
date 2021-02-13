@@ -23,6 +23,11 @@ table, th, td {
     padding: 1px 2px;
 }
 
+table {
+    width: 75%;
+    margin: 0px auto;
+}
+
 ul {
     text-align: left;
 }

@@ -22,8 +22,6 @@ function createGroups()
 		'Ricci Jr., Vincent',
 		'Schrecongost, Margaret',
 		'Saulon, William',
-		'test',
-		'test2',
 	);
 
 	// create empty groups array
@@ -32,26 +30,29 @@ function createGroups()
 	$groupID = 0;
 	// create groups of 3 until there is nobody left
 	while (count($students) > 0) {
-		// echo "count students = " . count($students);
+		// echo "count students = " . count($students).'<br/>';
 		$tmpGroup = $groups[$groupID] ?? [];
 		foreach (getRandomElements($students, 3) as $key) {
 			array_push($tmpGroup, $students[$key]);
 			unset($students[$key]);
 		}
-
+		// echo "count students = " . count($students).'<br/>';
+		
+		// echo 'tmpGroup:<br/><br/><pre>';
 		// var_dump($tmpGroup);
-		// $groups[$groupID] = $tmpGroup;
+		// echo '</pre><br/><br/>';
+
+		$groups[$groupID] = $tmpGroup;
+		// echo 'groups:<br/><br/><pre>';
 		// var_dump($groups);
+		// echo '</pre><br/><br/>';
+
 		++$groupID;
 	}
 
-	// print out the groups in a nice format
-	foreach ($groups as $key => $val) {
-		$output = "\nGroup ";
-		$output .= ($key + 1) . ": " . implode(' | ', $val) . "\n";
-		// var_dump($val);
-		// echo $output;
-	}
+	// echo '<pre style="text-align:left">';
+	// var_dump($groups);
+	// echo '</pre>';
 	return $groups;
 }
 
@@ -70,7 +71,7 @@ function getRandomElements(array $inputArray, int $numMembers)
 	}
 
 	// array_rand will cause an infinite loop of warnings if array length < requested number of values
-	if($numMembers < count($inputArray)){
+	if($numMembers > count($inputArray)){
 		// just send back the remaining keys
 		return array_keys($inputArray);
 	}

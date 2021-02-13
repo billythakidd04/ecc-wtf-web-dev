@@ -43,7 +43,7 @@ ini_set('display_errors', 1);
                 // var_dump($groups);
                 // echo '</pre>';
 
-                foreach ($groups[0] as $k => $v) {
+                foreach (max($groups) as $k => $v) {
                     echo "<th>Member " . ($k + 1) . "</th>";
                 }
                 ?>
@@ -84,9 +84,9 @@ ini_set('display_errors', 1);
 
     <div id="form" name="form">
         <?php
-        if (isset($_POST['submit-btn'])) {
             $first = '';
             $last = '';
+        if (isset($_POST['submit-btn'])) {
 
             if (!empty($_POST['firstName'])) {
                 $first = $_POST['firstName'];
@@ -102,23 +102,25 @@ ini_set('display_errors', 1);
 
             echo "<p>Full name entered:" . $first . ' ' . $last . "</p>";
 
-            if (count($_POST['things_i_like']) > 0) {
-                echo "Some things you like are:";
-                foreach ($_POST['things_i_like'] as $key => $value) {
-                    echo "<li>" . $value . "</li>";
+            if (!empty($_POST['things_i_like'])) {
+                if (count($_POST['things_i_like']) > 0) {
+                    echo "Some things you like are:";
+                    foreach ($_POST['things_i_like'] as $key => $value) {
+                        echo "<li>" . $value . "</li>";
+                    }
                 }
             }
         }
         ?>
 
-        <form method="post" name='testform'>
+        <form method="post" name='testform' id='testform' action='#testform'>
             <input type="text" name="firstName" <?= ($first ? 'value="' . $first . '"' : ''); ?> placeholder="first name" />
             <input type="text" name="lastName" <?= ($last ? 'value="' . $last . '"' : ''); ?> placeholder="Enter you last name"'></br>
-            <input type="checkbox" name="things_i_like[]" <?= ($_POST['things_i_like'][0] ? 'checked' : ''); ?> value="tv"/>Tv</br>
-            <input type="checkbox" name="things_i_like[]" <?= ($_POST['things_i_like'][1] ? 'checked' : ''); ?> value="movies"/>movies</br>
-            <input type="checkbox" name="things_i_like[]" <?= ($_POST['things_i_like'][2] ? 'checked' : ''); ?> value="music"/>music</br>
-            <input type="checkbox" name="things_i_like[]" <?= ($_POST['things_i_like'][3] ? 'checked' : ''); ?> value="games"/>games</br>
-            <input type="checkbox" name="things_i_like[]" <?= ($_POST['things_i_like'][4] ? 'checked' : ''); ?> value="computers"/>computers</br>
+            <input type="checkbox" name="things_i_like[]" <?= (!empty($_POST['things_i_like'][0]) ? 'checked' : ''); ?> value="tv"/>Tv</br>
+            <input type="checkbox" name="things_i_like[]" <?= (!empty($_POST['things_i_like'][1]) ? 'checked' : ''); ?> value="movies"/>movies</br>
+            <input type="checkbox" name="things_i_like[]" <?= (!empty($_POST['things_i_like'][2]) ? 'checked' : ''); ?> value="music"/>music</br>
+            <input type="checkbox" name="things_i_like[]" <?= (!empty($_POST['things_i_like'][3]) ? 'checked' : ''); ?> value="games"/>games</br>
+            <input type="checkbox" name="things_i_like[]" <?= (!empty($_POST['things_i_like'][4]) ? 'checked' : ''); ?> value="computers"/>computers</br>
             <input type="submit" name="submit-btn" value="Go"/>
         </form>
     </div>
