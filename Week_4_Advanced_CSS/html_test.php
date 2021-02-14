@@ -9,9 +9,34 @@ ini_set('display_errors', 1);
         this is a title
     </title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/nav.css">
 </head>
 
 <body>
+    <nav>
+        <div class="navbar">
+            <a href="index.htm" class="navBtn">Home</a>
+            <div class="dropdown">
+                <button class="dropbtn">By Week</button>
+                <div class="dropdown-content">
+                    <a href="">Week 1 - Intro to HTML</a>
+                    <a href="">Week 2 - CSS and intro to PHP</a>
+                    <a href="">Week 3 - GitHub and CLI</a>
+                    <a href="">Week 4 - Advanced CSS</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">By Language</button>
+                <div class="dropdown-content">
+                    <a href="">HTML</a>
+                    <a href="">CSS</a>
+                    <a href="">PHP</a>
+                    <a href="">JS</a>
+                </div>
+            </div>
+            <a href="https://github.com/billythakidd04/ecc-wtf-web-dev" class="navBtn">Go to GitHub</a>
+        </div>
+    </nav>
     <div id="intro">
         <!--This is my intro section i have stuff here-->
         <h3>This is my intro section!</h3>
