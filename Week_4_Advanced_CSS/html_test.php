@@ -63,11 +63,6 @@ ini_set('display_errors', 1);
                 require_once('src/groups_maker.php');
                 $groups = createGroups();
 
-                // Debugging
-                // echo '<pre>';
-                // var_dump($groups);
-                // echo '</pre>';
-
                 foreach (max($groups) as $k => $v) {
                     echo "<th>Member " . ($k + 1) . "</th>";
                 }
