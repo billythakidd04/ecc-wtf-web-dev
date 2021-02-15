@@ -30,29 +30,17 @@ function createGroups()
 	$groupID = 0;
 	// create groups of 3 until there is nobody left
 	while (count($students) > 0) {
-		// echo "count students = " . count($students).'<br/>';
 		$tmpGroup = $groups[$groupID] ?? [];
 		foreach (getRandomElements($students, 3) as $key) {
 			array_push($tmpGroup, $students[$key]);
 			unset($students[$key]);
 		}
-		// echo "count students = " . count($students).'<br/>';
-
-		// echo 'tmpGroup:<br/><br/><pre>';
-		// var_dump($tmpGroup);
-		// echo '</pre><br/><br/>';
 
 		$groups[$groupID] = $tmpGroup;
-		// echo 'groups:<br/><br/><pre>';
-		// var_dump($groups);
-		// echo '</pre><br/><br/>';
 
 		++$groupID;
 	}
 
-	// echo '<pre style="text-align:left">';
-	// var_dump($groups);
-	// echo '</pre>';
 	return $groups;
 }
 
