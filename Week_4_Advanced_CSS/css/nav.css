@@ -24,10 +24,6 @@ nav .dropdown {
     border-radius: 5px;
 }
 
-/* nav .dropdown:hover, nav a:hover {
-    background-color: rgb(98, 119, 189);
-} */
-
 nav .dropdown:hover{
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
