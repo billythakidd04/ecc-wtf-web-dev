@@ -14,6 +14,7 @@ ini_set('display_errors', 1);
 <body>
     <div id="intro">
         <!--This is my intro section i have stuff here-->
+        <h1><a href="slides/">Click here for the slides</a></h1>
         <h3>This is my intro section!</h3>
         <p>Aint it nice? have some lorem ipsum</p>
         <p>
