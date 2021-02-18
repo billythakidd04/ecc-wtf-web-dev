@@ -1,0 +1,40 @@
+Pop Quiz
+
+1. If my project folder is in my home directory, give me a cli command to get to it from anywhere
+
+2. I have made changes to 4 files in my project, I want to add all of those changes, what it the correct command to use?
+
+3. I have made changes to 4 files in my project, I want to add the changes from all but one of those files, what it the correct command to use?
+
+4. Explain what mv does and give an example of how to use it.
+
+5. I made committed changes to my main branch by mistake. Do I have to redo those changes on a new branch?
+
+6. If not, what should I do?
+
+7. What is the difference between git add . and git commit -a?
+
+8. What does rm do? How is it used with directories?
+
+9. Once I've staged my changes in git, what do I have to do next?
+
+10. How can I override something in a css file? Give at least one example.
+
+11. How do I link my css to my html page?
+
+12. What is the output of this code?
+
+
+
+
+
+
+
+
+
+$x = 0;
+if($x){
+    echo "The value of x is $x";
+} else {
+    echo 'The value of x is $x';
+}
