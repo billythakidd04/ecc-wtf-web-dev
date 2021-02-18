@@ -8,8 +8,8 @@ ini_set('display_errors', 1);
 	<title>
 		this is a title
 	</title>
-	<link rel="stylesheet" href="css/styles.css">
-	<link rel="stylesheet" href="css/nav.css">
+	<link rel="stylesheet" href="css/styles.css"/>
+	<link rel="stylesheet" href="css/nav.css"/>
 </head>
 
 <body>
@@ -110,6 +110,7 @@ ini_set('display_errors', 1);
 		$first = '';
 		$last = '';
 		$about = '';
+
 		if (isset($_POST['submit-btn'])) {
 
 			if (!empty(trim($_POST['firstName']))) {
