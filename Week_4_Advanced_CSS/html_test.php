@@ -110,6 +110,7 @@ ini_set('display_errors', 1);
 		$first = '';
 		$last = '';
 		$about = '';
+
 		if (isset($_POST['submit-btn'])) {
 
 			if (!empty(trim($_POST['firstName']))) {
