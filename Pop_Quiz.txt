@@ -17,7 +17,7 @@ Pop Quiz
 8. What does rm do? How is it used with directories?
 
 9. Once I've staged my changes in git, what do I have to do next?
-git commit 
+I would do git commit next
 
 10. How can I override something in a css file? Give at least one example.
 
