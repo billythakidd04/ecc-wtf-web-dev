@@ -5,6 +5,7 @@ Pop Quiz
 2. I have made changes to 4 files in my project, I want to add all of those changes, what it the correct command to use?
 
 3. I have made changes to 4 files in my project, I want to add the changes from all but one of those files, what it the correct command to use?
+git add file_a file_b file_c
 
 4. Explain what mv does and give an example of how to use it.
 
