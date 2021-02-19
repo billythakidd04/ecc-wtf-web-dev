@@ -18,6 +18,7 @@ git add file_a file_b file_c
 Git add . is all files and git commit -a is for those that are tracked.
 
 8. What does rm do? How is it used with directories?
+rm -r directoryName/ or rm file
 
 9. Once I've staged my changes in git, what do I have to do next?
 I would do git commit next
