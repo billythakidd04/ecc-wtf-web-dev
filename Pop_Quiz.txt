@@ -10,9 +10,10 @@ git add file_a file_b file_c
 4. Explain what mv does and give an example of how to use it.
 
 5. I made committed changes to my main branch by mistake. Do I have to redo those changes on a new branch?
-checkout to branch then then commit.
+no
 
 6. If not, what should I do?
+checkout to branch then then commit.
 
 7. What is the difference between git add . and git commit -a?
 
