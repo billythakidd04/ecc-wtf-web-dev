@@ -3,7 +3,7 @@ Pop Quiz
 1. If my project folder is in my home directory, give me a cli command to get to it from anywhere
 
 2. I have made changes to 4 files in my project, I want to add all of those changes, what it the correct command to use?
-git add .
+git add . or git commit -am (assuming all files are tracked by git)
 
 3. I have made changes to 4 files in my project, I want to add the changes from all but one of those files, what it the correct command to use?
 
