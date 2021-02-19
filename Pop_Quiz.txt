@@ -15,7 +15,7 @@ Pop Quiz
 7. What is the difference between git add . and git commit -a?
 
 8. What does rm do? How is it used with directories?
-Remove files from the directory. On cmd line type rm directoryName/
+rm -r directoryName/ or rm file
 
 9. Once I've staged my changes in git, what do I have to do next?
 
