@@ -21,6 +21,7 @@ git add file_a file_b file_c
 I would do git commit next
 
 10. How can I override something in a css file? Give at least one example.
+Identify element with inherited style right click element and select insepect element.
 
 11. How do I link my css to my html page?
 
