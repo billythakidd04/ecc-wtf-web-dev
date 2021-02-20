@@ -1,0 +1,51 @@
+Pop Quiz
+
+1. If my project folder is in my home directory, give me a cli command to get to it from anywhere
+cd ~
+
+2. I have made changes to 4 files in my project, I want to add all of those changes, what it the correct command to use?
+git add . 
+
+3. I have made changes to 4 files in my project, I want to add the changes from all but one of those files, what it the correct command to use?
+git add file_a file_b file_c
+
+4. Explain what mv does and give an example of how to use it.
+mv is a cli command for move, example: moving a file to another folder in workspace called class_work   mv file.txt ../class_work   
+
+5. I made committed changes to my main branch by mistake. Do I have to redo those changes on a new branch?
+no. 
+
+6. If not, what should I do?
+create a new branch- push that branch to the remote, then go back to main and reset the local commits git reset --hard origin/(main name)
+
+7. What is the difference between git add . and git commit -a?
+Git add . is all files and git commit -a is for those that are tracked.
+
+8. What does rm do? How is it used with directories?
+rm removes, you can remove directories with rm -r folder-name 
+
+9. Once I've staged my changes in git, what do I have to do next?
+git commit
+
+10. How can I override something in a css file? Give at least one example.
+place styke within the head of the html document, or within the html element tag itself within the body
+
+11. How do I link my css to my html page?
+<link rel="stylesheet" href="style.css"/>
+
+12. What is the output of this code?
+The value of x is $x
+
+
+
+
+
+
+
+
+$x = 0;
+if($x){
+    echo "The value of x is $x";
+} else {
+    echo 'The value of x is $x';
+}
