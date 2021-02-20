@@ -61,7 +61,7 @@ ini_set('display_errors', 1);
 			<thead>
 				<th></th>
 				<?php
-				require_once('src/groups_maker.php');
+				require_once('src/Group/groups_maker.php');
 				$groups = createGroups();
 
 				foreach (max($groups) as $k => $v) {
