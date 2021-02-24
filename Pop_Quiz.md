@@ -57,7 +57,7 @@ The value of x is $x
 
 1. What are the PHP values that equate to `FALSE`? 0, null, false, empty string @nburd90
 
-1. What goes in a `<head></head>` tag? @margeschrec
+1. What goes in a `<head></head>` tag? all the metadata for the page, such as links to the css sheet, google fonts, bootstrap etc. @margeschrec
 
 1. Why would I use an html class property vs an id? id should apply to a single element, where class applies to a larger subset of elements without being tag specific. ie error class @CharleswithLove
 
