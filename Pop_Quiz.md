@@ -63,7 +63,7 @@ The value of x is $x
 
 1. Explain what `$_POST` is in PHP. It is an array @gc824
 
-1. What html property is used to populate the `$_POST` array in PHP? @williamrockowl
+1. What html property is used to populate the `$_POST` array in PHP? the `name` property. @williamrockowl
 
 1. When should I use inline styles? To override other styles @cwlainson
 
