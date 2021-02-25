@@ -157,11 +157,17 @@ ini_set('display_errors', 1);
 				<fieldset>
 					<legend>Text Inputs</legend>
 					<label for="firstName">First Name</label>
-					<input type="text" id="firstName" name="firstName" <?= ($first ? 'value="' . $first . '"' : ''); ?> placeholder="first name" required /></br>
+					<input type="text" id="firstName" name="firstName" <?= ($first ? 'value="' . $first . '"' : ''); ?> placeholder="Enter your first name" required /></br>
 					<label for="lastName">Last Name</label>
-					<input type="text" id="lastName" name="lastName" <?= ($last ? 'value="' . $last . '"' : ''); ?> placeholder="Enter you last name"' required></br>
-				<label for="aboutMe">Tell us about yourself</label>
-				<textarea id="aboutMe" name="aboutMe" placeholder="Tell us something you would like us to know about you"' required><?= ($about ? $about : ''); ?></textarea></br>
+					<input type="text" id="lastName" name="lastName" <?= ($last ? 'value="' . $last . '"' : ''); ?> placeholder="Enter you last name" required></br>
+					<label for="email">Email</label>
+					<input type="email" id="email" name="email" <?= ($email ? 'value="' . $email . '"' : ''); ?> placeholder="Enter your email" required></br>
+					<label for="groupNum">Group Number</label>
+					<input type="number" min="1" max="4" id="groupNum" name="groupNum" <?= ($groupNum ? 'value="' . $groupNum . '"' : ''); ?> required></br>
+					<label for="groupURL">Group Repo URL</label>
+					<input type="url" id="groupURL" name="groupURL" <?= ($groupURL ? 'value="' . $groupURL . '"' : ''); ?> required></br>
+					<label for="aboutMe">Tell us about yourself</label>
+					<textarea id="aboutMe" name="aboutMe" placeholder="Tell us something you would like us to know about you"' required><?= ($about ? $about : ''); ?></textarea></br>
 				</fieldset>
 				<fieldset>
 					<legend>Checkboxes</legend>
