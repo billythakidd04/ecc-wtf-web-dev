@@ -8,6 +8,7 @@ ini_set('display_errors', 1);
 	<title>
 		this is a title
 	</title>
+	<link rel="shortcut icon" type="image/jpg" href="img/favicon.png"/>
 	<link rel="stylesheet" href="css/styles.css"/>
 	<link rel="stylesheet" href="css/nav.css"/>
 </head>
