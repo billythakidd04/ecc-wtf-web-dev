@@ -53,3 +53,10 @@ These are the materials for my web development course at ECC for workforce devel
 1. **once approved** merge the request into main/master
 1. `git checkout main/master`
 1. `git pull -p`
+
+## Helpful Links
+
+[PHP.net PHP reference](https://php.net)
+[W3 Schools CSS HTML JS reference](https://www.w3schools.com/)
+[Linking prs to issues in github](https://docs.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)
+[Bootstrap Docs](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
