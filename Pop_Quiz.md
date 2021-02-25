@@ -53,7 +53,7 @@ The value of x is $x
 
 1. What command can I use to find out what directory I am in? `pwd` @WaymonBrown84
 
-1. What is the difference between `'` and `"` in PHP? @tfrazzini13
+1. What is the difference between `'` and `"` in PHP? '' is a string literal, it won't interpret variables, "" will interpret the value of the variable if used.
 
 1. What are the PHP values that equate to `FALSE`? 0, null, false, empty string @nburd90
 
@@ -100,6 +100,7 @@ echo 'End processing';
 1. How can I tie a pull request or commit to a specific ticket in GitHub?
 
 1. What is a CDN?
+@eiman-kased - Content Deliver Network
 
 1. What command can I use to see all local branches?
 
