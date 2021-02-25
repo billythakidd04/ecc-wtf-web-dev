@@ -96,3 +96,25 @@ echo 'End processing';
 ```
 
 1. How can I tie a pull request or commit to a specific ticket in GitHub?
+
+1. What is a CDN?
+
+1. What command can I use to see all local branches?
+
+1. What command can I use to see all remote branches?
+
+1. What tag do we use to open a php block?
+
+1. What are `<header>`, `<main>`, and `<footer>`?
+
+1. What attribute do we use with bootstrap to style an element?
+
+1. What command can I use to see all changes that haven't been committed?
+
+1. What command can I use to see all hidden files in a directory?
+
+1. Why does bootstrap css go *before* all other css?
+
+1. What kind of application do I need running to use PHP?
+
+1. What does concatenate mean?
