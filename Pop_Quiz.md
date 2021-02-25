@@ -95,6 +95,8 @@ if(!empty($array)){
 echo 'End processing';
 ```
 
+----------
+
 1. How can I tie a pull request or commit to a specific ticket in GitHub?
 
 1. What is a CDN?
