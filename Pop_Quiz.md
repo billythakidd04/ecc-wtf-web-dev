@@ -98,26 +98,38 @@ echo 'End processing';
 ----------
 
 1. How can I tie a pull request or commit to a specific ticket in GitHub?
+@tfrazzini13 Add the ticket number to the message or pull request comment
 
 1. What is a CDN?
-@eiman-kased - Content Deliver Network
+@eiman-kased - Content Delivery Network
 
 1. What command can I use to see all local branches?
+@margeschrec `git branch`
 
 1. What command can I use to see all remote branches?
+@rbaia28 `git branch -r`
 
 1. What tag do we use to open a php block?
+@gc824 `<?php`
 
-1. What are `<header>`, `<main>`, and `<footer>`?
-
-1. What attribute do we use with bootstrap to style an element?
+1. What HTML attribute do we use with bootstrap to style an element?
+@WaymonBrown84
 
 1. What command can I use to see all changes that haven't been committed?
+@nburd90 `git status`
 
 1. What command can I use to see all hidden files in a directory?
+@cwlainson `ls -a`
 
 1. Why does bootstrap css go *before* all other css?
+@vricci518 So your styling doesn't get overwritten by bootstrap
 
 1. What kind of application do I need running to use PHP?
+@CharleswithLove webserver
 
 1. What does concatenate mean?
+@williamrockowl To link two strings together
+
+----------
+
+1. What are `<header>`, `<main>`, and `<footer>`?
