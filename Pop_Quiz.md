@@ -113,7 +113,7 @@ echo 'End processing';
 @gc824 `<?php`
 
 1. What HTML attribute do we use with bootstrap to style an element?
-@WaymonBrown84
+@WaymonBrown84 class
 
 1. What command can I use to see all changes that haven't been committed?
 @nburd90 `git status`
