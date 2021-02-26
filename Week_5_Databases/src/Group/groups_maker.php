@@ -1,5 +1,6 @@
 <?php
 error_reporting(-1);
+require_once("../DB/db_connect.php");
 
 /**
  * getRandomElements
@@ -74,17 +75,21 @@ function createGroups()
  * @return boolean
  */
 function saveGroup(array $group): bool{
+	// check if we have the info we need
 	if (empty($group['number']) || empty($group['repositoryURL'])) {
 		// log error
 		echo 'Number AND Repository URL cannot be blank';
-		return false;
+		throw new Exception('Number AND Repository URL cannot be blank');
 	}
-	$num = $group['number'];
-	$repositoryURL = $group['repositoryURL'];
+
+	// connect to db
+	$db = dbConn();
+	// escape our values so we don't get hacked
+	$num = $db->real_escape_string($group['number']);
+	$repositoryURL = $db->real_escape_string($group['repositoryURL']);
 
 	$sql = "INSERT INTO GROUPS (groupNumber, repositoryURL)
 	VALUES ($num, '$repositoryURL')";
 
-	
-	return true;
+	return $db->query($sql);
 }

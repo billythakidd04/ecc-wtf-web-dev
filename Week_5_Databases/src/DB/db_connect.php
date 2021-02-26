@@ -1,13 +1,22 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "password";
+function dbConn(): mysqli
+{
+  $servername = "localhost";
+  $username = "ecc";
+  $password = "";
 
-// Create connection
-$conn = new mysqli($servername, $username, $password);
+  // Create connection
+  $conn = new mysqli($servername, $username, $password);
 
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
+  // Check connection
+  if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+  }
+  echo "Connected successfully";
+  return $conn;
 }
-echo "Connected successfully";
+
+function closeConnection(mysqli $conn)
+{
+  $conn->close();
+}
