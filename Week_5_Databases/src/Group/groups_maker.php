@@ -9,11 +9,10 @@ require_once("../DB/db_connect.php");
  * @param integer $numMembers
  * @return array array of random keys equal to inputArray length or #numMembers whichever is less
  */
-function getRandomElements(array $inputArray, int $numMembers)
-{
+function getRandomElements(array $inputArray, int $numMembers): array {
 	// get rand values
 	if (empty($inputArray)) {
-		throw new Exception("empty array passed!!");
+		throw new \InvalidArgumentException("empty array passed!!");
 	}
 
 	// array_rand will cause an infinite loop of warnings if array length < requested number of values
@@ -66,30 +65,4 @@ function createGroups()
 	}
 
 	return $groups;
-}
-
-/**
- * saveGtoup functions
- *
- * @param array $group the associative array with group info
- * @return boolean
- */
-function saveGroup(array $group): bool{
-	// check if we have the info we need
-	if (empty($group['number']) || empty($group['repositoryURL'])) {
-		// log error
-		echo 'Number AND Repository URL cannot be blank';
-		throw new Exception('Number AND Repository URL cannot be blank');
-	}
-
-	// connect to db
-	$db = dbConn();
-	// escape our values so we don't get hacked
-	$num = $db->real_escape_string($group['number']);
-	$repositoryURL = $db->real_escape_string($group['repositoryURL']);
-
-	$sql = "INSERT INTO GROUPS (groupNumber, repositoryURL)
-	VALUES ($num, '$repositoryURL')";
-
-	return $db->query($sql);
 }
