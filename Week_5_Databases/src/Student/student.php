@@ -1,14 +1,20 @@
 <?php
 class Student
 {
-	protected $nID;
-	protected $sLastName;
-	protected $sFirstName;
-	protected $sEmail;
-	protected $sRepoURL;
-	protected $nGroupID;
+	public $nID;
+	public $sLastName;
+	public $sFirstName;
+	public $sEmail;
+	public $sRepoURL;
+	public $nGroupID;
 
-	private $this->db;
+	private static $db;
+
+	private static function getDBConn()
+	{
+		// connect to db
+		self::$db = self::$db ?? dbConn();
+	}
 
 	/**
 	 * Undocumented function
@@ -17,52 +23,50 @@ class Student
 	 */
 	public function createStudent(): bool
 	{
-		// check if we have the info we need
-		if (empty($group['number']) || empty($group['repositoryURL'])) {
-			// log error
-			echo 'Number AND Repository URL cannot be blank';
-			throw new Exception('Number AND Repository URL cannot be blank');
+		self::getDBConn();
+
+		$sql = "INSERT INTO `Students` (lastName, firstName, email, repositoryURL, groupID) VALUES ('$this->sLastName', '$this->sFirstName', '$this->sEmail', '$this->sRepoURL', '$this->nGroupID')";
+
+		// false on fail true on success
+		$result = self::$db->query($sql);
+		if (!$result) {
+			echo self::$db->error . ', error number: ' . self::$db->errno;
+			self::$db->close();
+			return false;
 		}
-
-		// connect to db
-		$this->db = $this->db ?? dbConn();
-		// escape our values so we don't get hacked
-		$num = $this->db->real_escape_string($group['number']);
-		$repositoryURL = $this->db->real_escape_string($group['repositoryURL']);
-
-		$sql = "INSERT INTO GROUPS (groupNumber, repositoryURL)
-	VALUES ($num, '$repositoryURL')";
-
-		return $this->db->query($sql);
-	}
-
-	/**
-	 * find Student
-	 *
-	 * @return Student
-	 */
-	public function findStudent(): Student{
-		$sql = "Select * from students where id=$this->id";
-		return $this;
+		self::$db->close();
+		return true;
 	}
 
 	/**
 	 * Find Student by Last Name
 	 * @var string $lastName
 	 *
-	 * @return Student|bool
+	 * @return Student
 	 */
-	public function findStudentByLastName($lastName): mixed{
-		$sql = "Select count(id), id from students where lastName=\'$lastName\'";
-		$result = $this->db->query($sql);
+	public function findStudentByLastName($lastName): Student
+	{
+		self::getDBConn();
 
-		return $this;
+		$sql = "Select count(id), id from students where lastName=\'$lastName\'";
+
+		return self::$db->query($sql);
 	}
 
 	/**
-	 * Delete Student
+	 * listStudents lists all students in an array
 	 *
-	 * @return void
+	 * @return array
 	 */
-	public function deleteStudent(){}
+	public static function listStudents():mysqli_result
+	{
+		self::getDBConn();
+
+		$sql = 'SELECT * FROM `Students`';
+		$students = self::$db->query($sql);
+		if (!$students) {
+			echo 'Error retrieving groups: '.self::$db->error.', ('.self::$db->errno.')';
+		}
+		return $students;
+	}
 }

@@ -11,7 +11,7 @@ ini_set('display_errors', 1);
 	<!-- bootstrap css not used atm-->
 	<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous"> -->
 	<!-- site css -->
-	<link rel="shortcut icon" type="image/jpg" href="img/favicon.png"/>
+	<link rel="shortcut icon" type="image/jpg" href="img/favicon.png" />
 	<link rel="stylesheet" href="css/styles.css" />
 	<link rel="stylesheet" href="css/nav.css" />
 </head>
@@ -68,24 +68,54 @@ ini_set('display_errors', 1);
 				<thead>
 					<th></th>
 					<?php
+					require_once('src/Group/group.php');
 					require_once('src/Group/groups_maker.php');
-					$groups = createGroups();
+					require_once('src/Student/student.php');
 
-					foreach (max($groups) as $k => $v) {
-						echo "<th>Member " . ($k + 1) . "</th>";
+					$groups = Group::listGroups();
+					$students = Student::listStudents();
+
+					echo '<h1>Groups</h1>';
+					echo '<pre>';
+					var_dump($groups);
+					echo '</pre>';
+
+					echo '<h1>Students</h1>';
+					echo '<pre>';
+					var_dump($students);
+					echo '</pre>';
+
+					if (!empty($groups)) {
+						while ($result = $groups->fetch_array(\MYSQLI_ASSOC)) {
+							echo 'Groups<pre>';
+							var_dump($result);
+							echo '</pre>';
+							// echo "<th>Member " . ($k + 1) . "</th>";
+						}
+					}
+
+					if (!empty($students)) {
+						while ($result = $students->fetch_array(\MYSQLI_ASSOC)) {
+							echo 'Students<pre>';
+							var_dump($result);
+							echo '</pre>';
+							// echo "<th>Member " . ($k + 1) . "</th>";
+						}
 					}
 					?>
 				</thead>
 				<tbody>
 					<?php
-					foreach ($groups as $key => $value) {
-						echo '<tr>';
-						echo ("<td>Group " . ($key + 1) . "</td>");
+					if (!empty($groups)) {
+						foreach ($groups as $key => $value) {
+							echo '<tr>';
+							echo ("<td>Group " . ($key + 1) . "</td>");
 
-						foreach ($value as $id => $student) {
-							echo "<td id='student_$id'>$student</td>";
+							foreach ($value as $id => $student) {
+								echo "<td id='student_$id'>$student</td>";
+							}
+							echo '</tr>';
 						}
-						echo '</tr>';
 					}
 					?>
 				</tbody>
@@ -114,34 +144,45 @@ ini_set('display_errors', 1);
 
 		<div id="form" name="form">
 			<?php
-			$first = '';
-			$last = '';
-			$about = '';
+			$student = new Student();
+			$group = new Group();
+			$bError = false;
+
+			// var_dump($_POST);
 
 			if (isset($_POST['submit-btn'])) {
-
 				if (!empty(trim($_POST['firstName']))) {
-					$first = trim($_POST['firstName']);
+					$student->sFirstName = trim($_POST['firstName']);
 				} else {
+					$bError = true;
 					echo "<h1 style='color: red'>First Name cannot be empty!!</h1>";
 				}
 
 				if (!empty(trim($_POST['lastName']))) {
-					$last = trim($_POST['lastName']);
+					$student->sLastName = trim($_POST['lastName']);
 				} else {
+					$bError = true;
 					echo "<h1 style='color: red'>Last Name cannot be empty!!</h1>";
 				}
 
-				if (!empty(trim($_POST['aboutMe']))) {
-					$about = trim($_POST['aboutMe']);
+				if (!empty(trim($_POST['email']))) {
+					$student->sEmail = trim($_POST['email']);
 				} else {
-					echo "<h1 style='color: red'>About Me cannot be empty!!</h1>";
+					$bError = true;
+					echo "<h1 style='color: red'>Email cannot be empty!!</h1>";
 				}
 
-				if ($first && $last) {
-					echo "<p>Full name entered:" . $first . ' ' . $last . "</p>";
-					echo "<p>Your info:" . $about . "</p>";
+				if (!empty(trim($_POST['studentRepoURL']))) {
+					$student->sRepoURL = trim($_POST['studentRepoURL']);
+				} else {
+					$bError = true;
+					echo "<h1 style='color: red'>Personal Repository URL cannot be empty!!</h1>";
 				}
+
+				// if ($student  null && $bError) {
+				// 	echo "<p>Full name entered:" . $first . ' ' . $last . "</p>";
+				// 	echo "<p>Your info:" . $about . "</p>";
+				// }
 
 				if (!empty($_POST['things_i_like'])) {
 					if (count($_POST['things_i_like']) > 0) {
@@ -151,6 +192,25 @@ ini_set('display_errors', 1);
 						}
 					}
 				}
+
+				if (!empty(trim($_POST['groupNum']))) {
+					$student->nGroupID = trim($_POST['groupNum']);
+					$group->nGroupNum = $student->nGroupID;
+				} else {
+					$bError = true;
+					echo "<h1 style='color: red'>Select a Group Number!!</h1>";
+				}
+				if (!empty(trim($_POST['groupURL']))) {
+					$group->sRepoURL = trim($_POST['groupURL']);
+				} else {
+					$bError = true;
+					echo "<h1 style='color: red'>Please enter the group URL!!</h1>";
+				}
+
+				if (!$bError) {
+					echo ($group->createGroup()? '<h1>Group created success</h1>':'<h1>GROUP FAILURE</h1>');
+					echo ($student->createStudent()? '<h1>Student created success</h1>':'<h1>STUDENT FAILURE</h1>');
+				}
 			}
 			?>
 
@@ -158,11 +218,13 @@ ini_set('display_errors', 1);
 				<fieldset>
 					<legend>User Info</legend>
 					<label for="firstName">First Name</label>
-					<input type="text" id="firstName" name="firstName" <?= ($first ? 'value="' . $first . '"' : ''); ?> placeholder="Enter your first name" required /></br>
+					<input type="text" id="firstName" name="firstName" <?= ($student->sFirstName ? 'value="' . $student->sFirstName . '"' : ''); ?> placeholder="Enter your first name" required /></br>
 					<label for="lastName">Last Name</label>
-					<input type="text" id="lastName" name="lastName" <?= ($last ? 'value="' . $last . '"' : ''); ?> placeholder="Enter you last name" required></br>
+					<input type="text" id="lastName" name="lastName" <?= ($student->sLastName ? 'value="' . $student->sLastName . '"' : ''); ?> placeholder="Enter you last name" required></br>
 					<label for="email">Email</label>
-					<input type="email" id="email" name="email" <?= ($email ? 'value="' . $email . '"' : ''); ?> placeholder="Enter your email" required>
+					<input type="email" id="email" name="email" <?= ($student->sEmail ? 'value="' . $student->sEmail . '"' : ''); ?> placeholder="Enter your email" required>
+					<label for="studentRepoURL">Personal Repository URL</label>
+					<input type="studentRepoURL" id="studentRepoURL" name="studentRepoURL" <?= ($student->sRepoURL ? 'value="' . $student->sRepoURL . '"' : ''); ?> placeholder="Enter your GitHub URL" required>
 					<fieldset>
 						<legend>I like:</legend>
 						<label for="til_tv">TV</label>
@@ -180,11 +242,9 @@ ini_set('display_errors', 1);
 				<fieldset>
 					<legend>Group Info</legend>
 					<label for="groupNum">Group Number</label>
-					<input type="number" min="1" max="4" id="groupNum" name="groupNum" <?= ($groupNum ? 'value="' . $groupNum . '"' : ''); ?> required></br>
+					<input type="number" min="1" max="4" id="groupNum" name="groupNum" <?= ($group->nGroupNum ? 'value="' . $group->nGroupNum . '"' : ''); ?> required></br>
 					<label for="groupURL">Group Repo URL</label>
-					<input type="url" id="groupURL" name="groupURL" <?= ($groupURL ? 'value="' . $groupURL . '"' : ''); ?> required></br>
-					<label for="aboutMe">Tell us about yourself</label>
-					<textarea id="aboutMe" name="aboutMe" placeholder="Tell us something you would like us to know about you"' required><?= ($about ? $about : ''); ?></textarea></br>
+					<input type="url" id="groupURL" name="groupURL" <?= ($group->sRepoURL ? 'value="' . $group->sRepoURL . '"' : ''); ?> required></br>
 				</fieldset>
 				<input type="submit" name="submit-btn" value="Go" />
 			</form>

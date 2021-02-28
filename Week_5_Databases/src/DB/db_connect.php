@@ -4,9 +4,10 @@ function dbConn(): mysqli
   $servername = "localhost";
   $username = "ecc";
   $password = "";
+  $db = 'ecc_demo';
 
   // Create connection
-  $conn = new mysqli($servername, $username, $password);
+  $conn = new mysqli($servername, $username, $password, $db);
 
   // Check connection
   if ($conn->connect_error) {

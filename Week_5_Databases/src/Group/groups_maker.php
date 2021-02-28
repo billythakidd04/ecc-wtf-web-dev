@@ -1,6 +1,6 @@
 <?php
 error_reporting(-1);
-require_once("../DB/db_connect.php");
+require_once("src/DB/db_connect.php");
 
 /**
  * getRandomElements
