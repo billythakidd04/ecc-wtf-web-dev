@@ -54,6 +54,17 @@ These are the materials for my web development course at ECC for workforce devel
 1. `git checkout main/master`
 1. `git pull -p`
 
+### If you get a conflict
+
+`git checkout <master-branch-name>`
+`git pull -p`
+`git checkout <feature/bugfix branch>`
+`git merge <master branch name>`
+resolve conflicts
+`git add <filename(s) of fixed file(s)>`
+`git merge --continue`
+`git push`
+
 ## Helpful Links
 
 [PHP.net PHP reference](https://php.net)
