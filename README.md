@@ -56,18 +56,18 @@ These are the materials for my web development course at ECC for workforce devel
 
 ### If you get a conflict
 
-`git checkout <master-branch-name>`
-`git pull -p`
-`git checkout <feature/bugfix branch>`
-`git merge <master branch name>`
-resolve conflicts
-`git add <filename(s) of fixed file(s)>`
-`git merge --continue`
-`git push`
+1. `git checkout <master-branch-name>`
+1. `git pull -p`
+1. `git checkout <feature/bugfix branch>`
+1. `git merge <master branch name>`
+1. resolve conflicts
+1. `git add <filename(s) of fixed file(s)>`
+1. `git merge --continue`
+1. `git push`
 
 ## Helpful Links
 
-[PHP.net PHP reference](https://php.net)
-[W3 Schools CSS HTML JS reference](https://www.w3schools.com/)
-[Linking prs to issues in github](https://docs.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)
-[Bootstrap Docs](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
+- [PHP.net PHP reference](https://php.net)
+- [W3 Schools CSS HTML JS reference](https://www.w3schools.com/)
+- [Linking prs to issues in github](https://docs.github.com/en/github/managing-your-work-on-github/- linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)
+- [Bootstrap Docs](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
