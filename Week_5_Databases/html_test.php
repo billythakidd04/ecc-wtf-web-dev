@@ -87,9 +87,9 @@ ini_set('display_errors', 1);
 
 					if (!empty($groups)) {
 						while ($result = $groups->fetch_array(\MYSQLI_ASSOC)) {
-							echo 'Groups<pre>';
-							var_dump($result);
-							echo '</pre>';
+							// echo 'Groups<pre>';
+							// var_dump($result);
+							// echo '</pre>';
 							// echo "<th>Member " . ($k + 1) . "</th>";
 						}
 					}
@@ -218,11 +218,11 @@ ini_set('display_errors', 1);
 				<fieldset>
 					<legend>User Info</legend>
 					<label for="firstName">First Name</label>
-					<input type="text" id="firstName" name="firstName" <?= ($student->sFirstName ? 'value="' . $student->sFirstName . '"' : ''); ?> placeholder="Enter your first name" required /></br>
+					<input type="text" id="firstName" name="firstName" <?= ($student->sFirstName ? 'value="' . $student->sFirstName . '"' : ''); ?> placeholder="Enter your first name" required /><br/>
 					<label for="lastName">Last Name</label>
-					<input type="text" id="lastName" name="lastName" <?= ($student->sLastName ? 'value="' . $student->sLastName . '"' : ''); ?> placeholder="Enter you last name" required></br>
+					<input type="text" id="lastName" name="lastName" <?= ($student->sLastName ? 'value="' . $student->sLastName . '"' : ''); ?> placeholder="Enter you last name" required><br/>
 					<label for="email">Email</label>
-					<input type="email" id="email" name="email" <?= ($student->sEmail ? 'value="' . $student->sEmail . '"' : ''); ?> placeholder="Enter your email" required>
+					<input type="email" id="email" name="email" <?= ($student->sEmail ? 'value="' . $student->sEmail . '"' : ''); ?> placeholder="Enter your email" required><br/>
 					<label for="studentRepoURL">Personal Repository URL</label>
 					<input type="studentRepoURL" id="studentRepoURL" name="studentRepoURL" <?= ($student->sRepoURL ? 'value="' . $student->sRepoURL . '"' : ''); ?> placeholder="Enter your GitHub URL" required>
 					<fieldset>

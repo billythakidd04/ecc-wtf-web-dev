@@ -33,11 +33,7 @@ class Group
 		$num = self::$db->real_escape_string($this->nGroupNum);
 		$repositoryURL = self::$db->real_escape_string($this->sRepoURL);
 
-		$sql = "INSERT INTO `Groups` (groupNumber, repositoryURL)
-	VALUES ($num, '$repositoryURL')
-	ORDER BY groupNumber ASC";
-
-		// echo "<br/>$sql<br/>";
+		$sql = "INSERT INTO `Groups` (groupNumber, repositoryURL) VALUES ($this->nGroupNum, '$this->sRepoURL')";
 
 		// false on fail true on success
 		$result = self::$db->query($sql);
@@ -59,7 +55,7 @@ class Group
 	{
 		self::getDBConn();
 
-		$sql = 'SELECT * FROM `Groups`';
+		$sql = 'SELECT * FROM `Groups` ORDER BY groupNumber ASC';
 		$groups = self::$db->query($sql);
 		if (!$groups) {
 			echo 'Error retrieving groups: '.self::$db->error.', ('.self::$db->errno.')';
