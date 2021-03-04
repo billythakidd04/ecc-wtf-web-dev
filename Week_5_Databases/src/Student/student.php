@@ -2,8 +2,8 @@
 class Student
 {
 	public $nID;
-	public $sLastName;
 	public $sFirstName;
+	public $sLastName;
 	public $sEmail;
 	public $sRepoURL;
 	public $nGroupID;
@@ -62,7 +62,7 @@ class Student
 	{
 		self::getDBConn();
 
-		$sql = 'SELECT * FROM `Students`';
+		$sql = 'SELECT * FROM `Students` ORDER BY firstName ASC';
 		$students = self::$db->query($sql);
 		if (!$students) {
 			echo 'Error retrieving groups: '.self::$db->error.', ('.self::$db->errno.')';
