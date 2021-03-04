@@ -133,3 +133,31 @@ echo 'End processing';
 ----------
 
 1. What are `<header>`, `<main>`, and `<footer>`?
+
+1. What 2 things are needed to use bootstrap?
+
+1. Why do we use databases?
+
+1. What SQL command would I use to get specific information out of a table?
+
+1. What does CRUD stand for?
+
+1. Which SQL command do I use to put information into a database?
+
+1. What does SQL stand for?
+
+1. How can I verify the values of a variable in PHP?
+
+1. What does `<?=` mean?
+
+1. What is the output of this code?
+
+```PHP
+$stuff = array();
+$counter = 0;
+while(count($stuff) < 8){
+  $stuff[] = $counter;
+  $counter += 2;
+}
+echo $stuff[$counter];
+```
