@@ -200,6 +200,7 @@ ini_set('display_errors', 1);
 				}
 
 				if (!empty(trim($_POST['groupNum']))) {
+					// TODO fix this to use proper group id not number
 					$student->groupID = trim($_POST['groupNum']);
 					$group->groupNumber = $student->groupID;
 				} else {
@@ -254,7 +255,7 @@ ini_set('display_errors', 1);
 					<label for="groupURL">Group Repo URL</label>
 					<input type="url" id="groupURL" name="groupURL" <?= ($group->repositoryURL ? 'value="' . $group->repositoryURL . '"' : ''); ?> required></br>
 				</fieldset>
-				<input type="submit" name="submit-btn" value="Go" />
+				<input type="submit" name="submit-btn" value="Go"/>
 			</form>
 		</div>
 	</main>

@@ -36,7 +36,7 @@ class Group
 
 		$sql = "INSERT INTO `Groups` (groupNumber, repositoryURL) VALUES ($num, '$repositoryURL')";
 
-		echo $sql;
+		// echo $sql;
 
 		// false on fail true on success
 		$result = self::$db->query($sql);
