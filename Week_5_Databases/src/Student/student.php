@@ -1,12 +1,14 @@
 <?php
+require_once("src/DB/db_connect.php");
+
 class Student
 {
-	public $nID;
-	public $sFirstName;
-	public $sLastName;
-	public $sEmail;
-	public $sRepoURL;
-	public $nGroupID;
+	public $id;
+	public $firstName;
+	public $lastName;
+	public $email;
+	public $repositoryURL;
+	public $groupID;
 
 	private static $db;
 
@@ -25,7 +27,12 @@ class Student
 	{
 		self::getDBConn();
 
-		$sql = "INSERT INTO `Students` (lastName, firstName, email, repositoryURL, groupID) VALUES ('$this->sLastName', '$this->sFirstName', '$this->sEmail', '$this->sRepoURL', '$this->nGroupID')";
+		$f = self::$db->real_escape_string($this->firstName);
+		$l = self::$db->real_escape_string($this->lastName);
+		$e = self::$db->real_escape_string($this->email);
+		$r = self::$db->real_escape_string(urlencode($this->repositoryURL));
+
+		$sql = "INSERT INTO `Students` (lastName, firstName, email, repositoryURL, groupID) VALUES ('$f', '$l', '$e', '$r', $this->groupID)";
 
 		// false on fail true on success
 		$result = self::$db->query($sql);
@@ -58,15 +65,44 @@ class Student
 	 *
 	 * @return array
 	 */
-	public static function listStudents():mysqli_result
+	public static function listStudents():array
 	{
 		self::getDBConn();
 
 		$sql = 'SELECT * FROM `Students` ORDER BY firstName ASC';
 		$students = self::$db->query($sql);
 		if (!$students) {
+			echo 'Error retrieving students: '.self::$db->error.', ('.self::$db->errno.')';
+		}
+
+		$retArray = array();
+		while($student = $students->fetch_object(\Student::class)){
+			$retArray[] = $student;
+		}
+
+		return $retArray;
+	}
+
+	/**
+	 * listStudentsByGroup lists all students in an array
+	 *
+	 * @return array
+	 */
+	public static function listStudentsByGroup(int $groupID):array
+	{
+		self::getDBConn();
+
+		$sql = 'SELECT * FROM `Students` WHERE `Students`.`groupID`= '.$groupID.' ORDER BY firstName ASC';
+		$students = self::$db->query($sql);
+		if (!$students) {
 			echo 'Error retrieving groups: '.self::$db->error.', ('.self::$db->errno.')';
 		}
-		return $students;
+
+		$retArray = array();
+		while($student = $students->fetch_object(\Student::class)){
+			$retArray[] = $student;
+		}
+
+		return $retArray;
 	}
 }
