@@ -102,9 +102,9 @@ ini_set('display_errors', 1);
 						// for each group
 						foreach ($groups as $group) {
 							// create a label for that group number
-							echo '<tr><td>Group Number ' . $group->groupNumber . '</td>';
+							echo '<tr><td>Group Number ' . $group->getGroupNumber() . '</td>';
 							// get a list of students in that group
-							$students = Student::listStudentsByGroup($group->id);
+							$students = Student::listStudentsByGroup($group->getID());
 							// keep track of the member count
 							$memCount = 0;
 							// loop over each student
@@ -202,7 +202,7 @@ ini_set('display_errors', 1);
 				if (!empty(trim($_POST['groupNum']))) {
 					// TODO fix this to use proper group id not number
 					$student->groupID = trim($_POST['groupNum']);
-					$group->groupNumber = $student->groupID;
+					$group->setGroupNumber($student->groupID);
 				} else {
 					$bError = true;
 					$error['groupNum'] = 'Select a Group Number!!';
@@ -251,7 +251,7 @@ ini_set('display_errors', 1);
 				<fieldset class="form-group">
 					<legend>Group Info</legend>
 					<label for="groupNum">Group Number</label>
-					<input type="number" min="1" max="4" id="groupNum" name="groupNum" <?= ($group->groupNumber ? 'value="' . $group->groupNumber . '"' : ''); ?> required></br>
+					<input type="number" min="1" max="4" id="groupNum" name="groupNum" <?= ($group->getGroupNumber() ? 'value="' . $group->getGroupNumber() . '"' : ''); ?> required></br>
 					<label for="groupURL">Group Repo URL</label>
 					<input type="url" id="groupURL" name="groupURL" <?= ($group->repositoryURL ? 'value="' . $group->repositoryURL . '"' : ''); ?> required></br>
 				</fieldset>

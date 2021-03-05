@@ -3,8 +3,8 @@ require_once("src/DB/db_connect.php");
 
 class Group
 {
-	public $id;
-	public $groupNumber;
+	private $id;
+	private $groupNumber;
 	public $repositoryURL;
 
 	private static $db;
@@ -13,6 +13,18 @@ class Group
 	{
 		// connect to db
 		self::$db = self::$db ?? dbConn();
+	}
+
+	public function getID(){
+		return $this->id;
+	}
+
+	public function getGroupNumber(){
+		return $this->groupNumber;
+	}
+
+	public function setGroupNumber($number){
+		$this->groupNumber = $number;
 	}
 
 	/**

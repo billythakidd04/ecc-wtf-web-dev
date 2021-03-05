@@ -3,7 +3,7 @@ require_once("src/DB/db_connect.php");
 
 class Student
 {
-	public $id;
+	private $id;
 	public $firstName;
 	public $lastName;
 	public $email;
@@ -16,6 +16,10 @@ class Student
 	{
 		// connect to db
 		self::$db = self::$db ?? dbConn();
+	}
+
+	public function getID(){
+		return $this->id;
 	}
 
 	/**
