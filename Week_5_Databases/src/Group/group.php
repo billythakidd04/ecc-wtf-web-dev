@@ -5,7 +5,7 @@ class Group
 {
 	private $id;
 	private $groupNumber;
-	public $repositoryURL;
+	private $repositoryURL;
 
 	private static $db;
 
@@ -15,16 +15,24 @@ class Group
 		self::$db = self::$db ?? dbConn();
 	}
 
-	public function getID(){
+	public function getID():int{
 		return $this->id;
 	}
 
-	public function getGroupNumber(){
-		return $this->groupNumber;
+	public function getGroupNumber():int{
+		return $this->groupNumber ?? 0;
 	}
 
-	public function setGroupNumber($number){
+	public function setGroupNumber(int $number){
 		$this->groupNumber = $number;
+	}
+
+	public function getRepositoryURL():string{
+		return $this->repositoryURL ?? '';
+	}
+
+	public function setRepositoryURL(string $URL){
+		$this->repositoryURL = $URL;
 	}
 
 	/**
@@ -97,5 +105,14 @@ class Group
 			return $count->fetch_array(\MYSQLI_ASSOC)['count'];
 		}
 		return 0;
+	}
+
+	public static function findGroupByID(int $id):Group {
+		$sql = "SELECT * FROM GROUP WHERE id = $id";
+		$group = self::$db->query($sql);
+		if(!$group){
+			throw new Exception(self::$db->error);
+		}
+		return $group->fetch_object(\Group::class);
 	}
 }

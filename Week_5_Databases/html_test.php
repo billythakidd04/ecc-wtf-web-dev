@@ -104,13 +104,13 @@ ini_set('display_errors', 1);
 							// create a label for that group number
 							echo '<tr><td>Group Number ' . $group->getGroupNumber() . '</td>';
 							// get a list of students in that group
-							$students = Student::listStudentsByGroup($group->getID());
+							$students = Student::listStudentsByGroup($group);
 							// keep track of the member count
 							$memCount = 0;
 							// loop over each student
 							foreach ($students as $student) {
 								// create slot for the student with first and last name
-								echo "<td>$student->firstName $student->lastName</td>";
+								echo '<td>'.$student->getFirstName().' '.$student->getLastName().'</td>';
 								// don't forget to update the count
 								$memCount++;
 							}
@@ -121,8 +121,10 @@ ini_set('display_errors', 1);
 								// update the mem count so we dont loop forever
 								$memCount++;
 							}
+
+							$repoURL = urldecode($group->getRepositoryURL());
 							// create the slot for the group repo
-							echo "<td>$group->repositoryURL</td>";
+							echo "<td><a href='$repoURL'>$repoURL</a></td>";
 							// finish that row and go on to the next group
 							echo '</tr>';
 						}
@@ -159,8 +161,6 @@ ini_set('display_errors', 1);
 			$error = array();
 			$bError = false;
 
-			// var_dump($_POST);
-
 			if (isset($_POST['submit-btn'])) {
 				if (!empty(trim($_POST['firstName']))) {
 					$student->firstName = trim($_POST['firstName']);
@@ -170,21 +170,21 @@ ini_set('display_errors', 1);
 				}
 
 				if (!empty(trim($_POST['lastName']))) {
-					$student->lastName = trim($_POST['lastName']);
+					$student->setLastName(trim($_POST['lastName']));
 				} else {
 					$bError = true;
 					$error['lastName'] = 'Last Name cannot be empty!!';
 				}
 
 				if (!empty(trim($_POST['email']))) {
-					$student->email = trim($_POST['email']);
+					$student->setEmail(trim($_POST['email']));
 				} else {
 					$bError = true;
 					$error['email'] = 'Email cannot be empty!!';
 				}
 
 				if (!empty(trim($_POST['studentRepoURL']))) {
-					$student->repositoryURL = trim($_POST['studentRepoURL']);
+					$student->setRepositoryURL(trim($_POST['studentRepoURL']));
 				} else {
 					$bError = true;
 					$error['studentRepoURL'] = 'Personal Repository URL cannot be empty!!';
@@ -200,15 +200,13 @@ ini_set('display_errors', 1);
 				}
 
 				if (!empty(trim($_POST['groupNum']))) {
-					// TODO fix this to use proper group id not number
-					$student->groupID = trim($_POST['groupNum']);
-					$group->setGroupNumber($student->groupID);
+					$group->setGroupNumber($_POST['groupNum']);
 				} else {
 					$bError = true;
 					$error['groupNum'] = 'Select a Group Number!!';
 				}
 				if (!empty(trim($_POST['groupURL']))) {
-					$group->repositoryURL = trim($_POST['groupURL']);
+					$group->setRepositoryURL(trim($_POST['groupURL']));
 				} else {
 					$bError = true;
 					$error['groupURL'] = 'Please enter the group URL!!';
@@ -232,14 +230,14 @@ ini_set('display_errors', 1);
 				<div class="form-row">
 					<legend>User Info</legend>
 					<label for="firstName">First Name</label>
-					<input type="text" class="form-control <?=(isset($error['firstName'])?'is-invalid':'')?>" id="firstName" name="firstName" <?= ($student->firstName ? 'value="' . $student->firstName . '"' : ''); ?> placeholder="Enter your first name" required />
+					<input type="text" class="form-control <?=(isset($error['firstName'])?'is-invalid':'')?>" id="firstName" name="firstName" <?= ($student->getFirstName() ? 'value="' . $student->getFirstName() . '"' : ''); ?> placeholder="Enter your first name" required />
 					<label for="lastName">Last Name</label>
-					<input type="text" class="form-control" id="lastName" name="lastName" <?= ($student->lastName ? 'value="' . $student->lastName . '"' : ''); ?> placeholder="Enter you last name" required>
+					<input type="text" class="form-control" id="lastName" name="lastName" <?= ($student->getLastName() ? 'value="' . $student->getLastName() . '"' : ''); ?> placeholder="Enter you last name" required>
 				</div>
 					<label for="email">Email</label>
-					<input type="email" class="form-control" id="email" name="email" <?= ($student->email ? 'value="' . $student->email . '"' : ''); ?> placeholder="Enter your email" required><br />
+					<input type="email" class="form-control" id="email" name="email" <?= ($student->getEmail() ? 'value="' . $student->getEmail() . '"' : ''); ?> placeholder="Enter your email" required><br />
 					<label for="studentRepoURL">Personal Repository URL</label>
-					<input type="studentRepoURL" class="form-control" id="studentRepoURL" name="studentRepoURL" <?= ($student->repositoryURL ? 'value="' . $student->repositoryURL . '"' : ''); ?> placeholder="Enter your GitHub URL" required>
+					<input type="studentRepoURL" class="form-control" id="studentRepoURL" name="studentRepoURL" <?= ($student->getRepositoryURL() ? 'value="' . $student->getRepositoryURL() . '"' : ''); ?> placeholder="Enter your GitHub URL" required>
 					<fieldset class="form-check">
 						<legend>I like:</legend>
 						<label for="til_tv">TV</label>
@@ -259,7 +257,7 @@ ini_set('display_errors', 1);
 					<label for="groupNum">Group Number</label>
 					<input type="number" min="1" max="4" id="groupNum" name="groupNum" <?= ($group->getGroupNumber() ? 'value="' . $group->getGroupNumber() . '"' : ''); ?> required></br>
 					<label for="groupURL">Group Repo URL</label>
-					<input type="url" id="groupURL" name="groupURL" <?= ($group->repositoryURL ? 'value="' . $group->repositoryURL . '"' : ''); ?> required></br>
+					<input type="url" id="groupURL" name="groupURL" <?= ($group->getRepositoryURL() ? 'value="' . $group->getRepositoryURL() . '"' : ''); ?> required></br>
 				</fieldset>
 				<input type="submit" name="submit-btn" value="Go"/>
 			</form>
