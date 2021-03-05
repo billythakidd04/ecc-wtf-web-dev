@@ -32,7 +32,7 @@ class Group
 	 *
 	 * @return boolean
 	 */
-	function createGroup(): bool
+	function createGroup(): int
 	{
 		self::getDBConn();
 		// check if we have the info we need
@@ -57,8 +57,9 @@ class Group
 			self::$db->close();
 			return false;
 		}
+		$newID = self::$db->insert_id;
 		self::$db->close();
-		return true;
+		return $newID;
 	}
 
 	/**

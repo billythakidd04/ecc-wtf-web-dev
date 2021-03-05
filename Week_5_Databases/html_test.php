@@ -215,8 +215,14 @@ ini_set('display_errors', 1);
 				}
 
 				if (!$bError) {
-					echo ($group->createGroup() ? '<h1>Group created success</h1>' : '<h1>GROUP FAILURE</h1>');
-					echo ($student->createStudent() ? '<h1>Student created success</h1>' : '<h1>STUDENT FAILURE</h1>');
+					$groupID = $group->createGroup();
+					if($groupID){
+						$student->groupID = $groupID;
+						echo '<h1>Group created success</h1>';
+					} else {
+						echo '<h1>GROUP FAILURE</h1>';
+					}
+					echo ($student->createStudent()? '<h1>Student created success</h1>':'<h1>STUDENT FAILURE</h1>');
 				}
 			}
 			?>
