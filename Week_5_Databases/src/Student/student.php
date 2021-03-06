@@ -3,12 +3,12 @@ require_once("src/DB/db_connect.php");
 
 class Student
 {
-	public $id;
-	public $firstName;
-	public $lastName;
-	public $email;
-	public $repositoryURL;
-	public $groupID;
+	private $id;
+	private $firstName;
+	private $lastName;
+	private $email;
+	private $repositoryURL;
+	private $groupID;
 
 	private static $db;
 
@@ -16,6 +16,56 @@ class Student
 	{
 		// connect to db
 		self::$db = self::$db ?? dbConn();
+	}
+
+	public function getID():int{
+		return $this->id;
+	}
+
+	public function getFirstName():string {
+		return $this->firstName ?? '';
+	}
+
+	public function setFirstName(string $name) {
+		$this->firstName = $name;
+	}
+
+	public function getLastName():string {
+		return $this->lastName ?? '';
+	}
+
+	public function setLastName(string $name) {
+		$this->lastName = $name;
+	}
+
+	public function getRepositoryURL():string {
+		return $this->repositoryURL ?? '';
+	}
+
+	public function setRepositoryURL(string $URL) {
+		$this->repositoryURL = $URL;
+	}
+
+	public function getEmail():string {
+		return $this->email ?? '';
+	}
+
+	public function setEmail(string $email) {
+		$this->email = $email;
+	}
+
+	public function getGroup():Group {
+		$group = \Group::findGroupByID($this->groupID);
+		return $group;
+	}
+
+	public function getGroupID():int {
+		$group = $this->getGroup();
+		return $group->getID();
+	}
+
+	public function setGroupID(int $id) {
+		$this->groupID = $id;
 	}
 
 	/**
@@ -88,11 +138,11 @@ class Student
 	 *
 	 * @return array
 	 */
-	public static function listStudentsByGroup(int $groupID):array
+	public static function listStudentsByGroup(\Group $group):array
 	{
 		self::getDBConn();
 
-		$sql = 'SELECT * FROM `Students` WHERE `Students`.`groupID`= '.$groupID.' ORDER BY firstName ASC';
+		$sql = 'SELECT * FROM `Students` WHERE `Students`.`groupID`= '.$group->getID().' ORDER BY firstName ASC';
 		$students = self::$db->query($sql);
 		if (!$students) {
 			echo 'Error retrieving groups: '.self::$db->error.', ('.self::$db->errno.')';
