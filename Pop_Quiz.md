@@ -148,6 +148,7 @@ echo 'End processing';
 @margeschrec Create Retrieve Update Delete
 
 1. Which SQL command do I use to put information into a database?
+@williamrockowl
 
 1. What does SQL stand for?
 @CharleswithLove structured query language
@@ -159,6 +160,7 @@ echo 'End processing';
 @eiman-kased shortcut for echo
 
 1. What is the output of this code?
+@WaymonBrown84
 
 ```PHP
 $stuff = array();
