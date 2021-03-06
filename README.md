@@ -7,6 +7,7 @@ These are the materials for my web development course at ECC for workforce devel
 **Note** Always try to use tab whenever possible, it saves on spelling errors and helps you move faster
 
 - `cd`: change directory
+  - `cd ../` will put you into the parent directory (up a level) from where you are
   - `cd ~` will put you into your home directory
   - `cd /some/file/path/to/some/directory` will put you in to the folder path you described
 - `ls`: list directory contents
