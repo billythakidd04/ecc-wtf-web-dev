@@ -70,5 +70,5 @@ These are the materials for my web development course at ECC for workforce devel
 
 - [PHP.net PHP reference](https://php.net)
 - [W3 Schools CSS HTML JS reference](https://www.w3schools.com/)
-- [Linking prs to issues in github](https://docs.github.com/en/github/managing-your-work-on-github/- linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)
+- [Linking prs to issues in github](https://docs.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)
 - [Bootstrap Docs](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
