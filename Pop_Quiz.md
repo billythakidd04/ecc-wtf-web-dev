@@ -133,3 +133,72 @@ echo 'End processing';
 ----------
 
 1. What are `<header>`, `<main>`, and `<footer>`?
+@nburd90 special div tags
+
+1. What 2 things are needed to use bootstrap?
+@rbaia28 the css and the js
+
+1. Why do we use databases?
+@cwlainson data is valuable and its a great way to store
+
+1. What SQL command would I use to get specific information out of a table?
+@vricci518 select
+
+1. What does CRUD stand for?
+@margeschrec Create Retrieve Update Delete
+
+1. Which SQL command do I use to put information into a database?
+@williamrockowl Insert
+
+1. What does SQL stand for?
+@CharleswithLove structured query language
+
+1. How can I verify the value of a variable in PHP?
+@gc824 echo it out or use `var_dump()`
+
+1. What does `<?=` mean?
+@eiman-kased shortcut for echo
+
+1. What is the output of this code?
+@WaymonBrown84 This results in an error because `$counter` grows to a value larger than the number of elements in the array. The array has 8 elements but the value of `$counter` is 16. See the output below.
+
+```
+php > $stuff = array();
+php > $counter = 0;
+php > while(count($stuff) < 8){
+php {   $stuff[] = $counter;
+php {   $counter += 2;
+php { }
+php > var_dump($stuff);
+array(8) {
+  [0]=>
+  int(0)
+  [1]=>
+  int(2)
+  [2]=>
+  int(4)
+  [3]=>
+  int(6)
+  [4]=>
+  int(8)
+  [5]=>
+  int(10)
+  [6]=>
+  int(12)
+  [7]=>
+  int(14)
+}
+php > echo $counter;
+16
+php > 
+```
+
+```PHP
+$stuff = array();
+$counter = 0;
+while(count($stuff) < 8){
+  $stuff[] = $counter;
+  $counter += 2;
+}
+echo $stuff[$counter];
+```
