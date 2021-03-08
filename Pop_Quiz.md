@@ -148,7 +148,7 @@ echo 'End processing';
 @margeschrec Create Retrieve Update Delete
 
 1. Which SQL command do I use to put information into a database?
-@williamrockowl
+@williamrockowl Insert
 
 1. What does SQL stand for?
 @CharleswithLove structured query language
@@ -160,7 +160,38 @@ echo 'End processing';
 @eiman-kased shortcut for echo
 
 1. What is the output of this code?
-@WaymonBrown84
+@WaymonBrown84 This results in an error because `$counter` grows to a value larger than the number of elements in the array. The array has 8 elements but the value of `$counter` is 16. See the output below.
+
+```
+php > $stuff = array();
+php > $counter = 0;
+php > while(count($stuff) < 8){
+php {   $stuff[] = $counter;
+php {   $counter += 2;
+php { }
+php > var_dump($stuff);
+array(8) {
+  [0]=>
+  int(0)
+  [1]=>
+  int(2)
+  [2]=>
+  int(4)
+  [3]=>
+  int(6)
+  [4]=>
+  int(8)
+  [5]=>
+  int(10)
+  [6]=>
+  int(12)
+  [7]=>
+  int(14)
+}
+php > echo $counter;
+16
+php > 
+```
 
 ```PHP
 $stuff = array();
