@@ -1,12 +1,14 @@
 <?php
+require_once("src/DB/db_connect.php");
+
 class Student
 {
-	public $nID;
-	public $sFirstName;
-	public $sLastName;
-	public $sEmail;
-	public $sRepoURL;
-	public $nGroupID;
+	private $id;
+	private $firstName;
+	private $lastName;
+	private $email;
+	private $repositoryURL;
+	private $groupID;
 
 	private static $db;
 
@@ -14,6 +16,56 @@ class Student
 	{
 		// connect to db
 		self::$db = self::$db ?? dbConn();
+	}
+
+	public function getID():int{
+		return $this->id;
+	}
+
+	public function getFirstName():string {
+		return $this->firstName ?? '';
+	}
+
+	public function setFirstName(string $name) {
+		$this->firstName = $name;
+	}
+
+	public function getLastName():string {
+		return $this->lastName ?? '';
+	}
+
+	public function setLastName(string $name) {
+		$this->lastName = $name;
+	}
+
+	public function getRepositoryURL():string {
+		return $this->repositoryURL ?? '';
+	}
+
+	public function setRepositoryURL(string $URL) {
+		$this->repositoryURL = $URL;
+	}
+
+	public function getEmail():string {
+		return $this->email ?? '';
+	}
+
+	public function setEmail(string $email) {
+		$this->email = $email;
+	}
+
+	public function getGroup():Group {
+		$group = \Group::findGroupByID($this->groupID);
+		return $group;
+	}
+
+	public function getGroupID():int {
+		$group = $this->getGroup();
+		return $group->getID();
+	}
+
+	public function setGroupID(int $id) {
+		$this->groupID = $id;
 	}
 
 	/**
@@ -25,7 +77,12 @@ class Student
 	{
 		self::getDBConn();
 
-		$sql = "INSERT INTO `Students` (lastName, firstName, email, repositoryURL, groupID) VALUES ('$this->sLastName', '$this->sFirstName', '$this->sEmail', '$this->sRepoURL', '$this->nGroupID')";
+		$f = self::$db->real_escape_string($this->firstName);
+		$l = self::$db->real_escape_string($this->lastName);
+		$e = self::$db->real_escape_string($this->email);
+		$r = self::$db->real_escape_string(urlencode($this->repositoryURL));
+
+		$sql = "INSERT INTO `Students` (lastName, firstName, email, repositoryURL, groupID) VALUES ('$f', '$l', '$e', '$r', $this->groupID)";
 
 		// false on fail true on success
 		$result = self::$db->query($sql);
@@ -58,15 +115,44 @@ class Student
 	 *
 	 * @return array
 	 */
-	public static function listStudents():mysqli_result
+	public static function listStudents():array
 	{
 		self::getDBConn();
 
 		$sql = 'SELECT * FROM `Students` ORDER BY firstName ASC';
 		$students = self::$db->query($sql);
 		if (!$students) {
+			echo 'Error retrieving students: '.self::$db->error.', ('.self::$db->errno.')';
+		}
+
+		$retArray = array();
+		while($student = $students->fetch_object(\Student::class)){
+			$retArray[] = $student;
+		}
+
+		return $retArray;
+	}
+
+	/**
+	 * listStudentsByGroup lists all students in an array
+	 *
+	 * @return array
+	 */
+	public static function listStudentsByGroup(\Group $group):array
+	{
+		self::getDBConn();
+
+		$sql = 'SELECT * FROM `Students` WHERE `Students`.`groupID`= '.$group->getID().' ORDER BY firstName ASC';
+		$students = self::$db->query($sql);
+		if (!$students) {
 			echo 'Error retrieving groups: '.self::$db->error.', ('.self::$db->errno.')';
 		}
-		return $students;
+
+		$retArray = array();
+		while($student = $students->fetch_object(\Student::class)){
+			$retArray[] = $student;
+		}
+
+		return $retArray;
 	}
 }
