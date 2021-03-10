@@ -216,21 +216,32 @@ echo $stuff[$counter];
 ## 3/10/21
 
 1. How do I create a variable in JS?
+@nburd90
 
 1. What is the difference between a while loop and a for loop?
+@margeschrec
 
 1. How do I get my js file to run on my webpage?
+@vricci518
 
 1. What does the `%` symbol mean?
+@rbaia28
 
-1. What can I use to find out how many letters are in a word in js?
+1. What property can I use to find out how many letters are in a word in js?
+@WaymonBrown84
 
 1. What is a conditional?
+@cwlainson
 
 1. What is the difference between `document.write()` and `console.log()` in js?
+@gc824
 
 1. What does the `++` operator do?
+@eiman-kased
 
 1. Correct this code: `console.log('There's something wrong here!')`
+@CharleswithLove
+
 
 1. What is the advantage of using a front end programming language?
+@williamrockowl
