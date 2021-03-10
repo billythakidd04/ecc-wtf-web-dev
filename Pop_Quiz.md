@@ -202,3 +202,25 @@ while(count($stuff) < 8){
 }
 echo $stuff[$counter];
 ```
+
+----------
+
+1. How do I create a variable in JS?
+
+1. What is the difference between a while loop and a for loop?
+
+1. How do I get my js file to run on my webpage?
+
+1. What does the `%` symbol mean?
+
+1. What can I use to find out how many letters are in a word in js?
+
+1. What is a conditional?
+
+1. What is the difference between `document.write()` and `console.log()` in js?
+
+1. What does the `++` operator do?
+
+1. Correct this code: `console.log('There's something wrong here!')`
+
+1. What is the advantage of using a front end programming language?
