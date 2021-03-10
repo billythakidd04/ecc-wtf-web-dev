@@ -1,4 +1,6 @@
-Pop Quiz
+# Pop Quiz
+
+## 2/18/21
 
 1. If my project folder is in my home directory, give me a cli command to get to it from anywhere
 cd ~
@@ -46,6 +48,8 @@ The value of x is $x
 ```
 
 ----------
+
+## 2/22/21
 
 1. How can I see a listing of my previous commits on my pc? `git log` @rbaia28
 
@@ -97,6 +101,8 @@ echo 'End processing';
 
 ----------
 
+## 2/25/21
+
 1. How can I tie a pull request or commit to a specific ticket in GitHub?
 @tfrazzini13 Add the ticket number to the message or pull request comment
 
@@ -131,6 +137,8 @@ echo 'End processing';
 @williamrockowl To link two strings together
 
 ----------
+
+## 3/4/21
 
 1. What are `<header>`, `<main>`, and `<footer>`?
 @nburd90 special div tags
@@ -204,6 +212,8 @@ echo $stuff[$counter];
 ```
 
 ----------
+
+## 3/10/21
 
 1. How do I create a variable in JS?
 
