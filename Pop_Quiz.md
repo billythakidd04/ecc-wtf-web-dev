@@ -245,4 +245,5 @@ echo $stuff[$counter];
 
 1. What is the advantage of using a front end programming language?
 @williamrockowl
-Allows for a user interactive environment.
+Allows for a user interactive environment. Also allows access to the clients
+browser for processing which means, we don't need to rely on internet speed to update a page.
