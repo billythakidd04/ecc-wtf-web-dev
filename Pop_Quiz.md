@@ -245,3 +245,4 @@ echo $stuff[$counter];
 
 1. What is the advantage of using a front end programming language?
 @williamrockowl
+Allows for a user interactive environment.
