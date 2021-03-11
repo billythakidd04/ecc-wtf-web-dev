@@ -237,7 +237,7 @@ echo $stuff[$counter];
 @gc824
 
 1. What does the `++` operator do?
-@eiman-kased
+@eiman-kased this is the increment operator: adds one to the variable
 
 1. Correct this code: `console.log('There's something wrong here!')`
 @CharleswithLove
