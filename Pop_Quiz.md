@@ -225,7 +225,7 @@ echo $stuff[$counter];
 @vricci518 use the script tag, it can be placed within the head of the html file. For Bootstrap it recomended to put is just above the /body tag to the page can load first.
 
 1. What does the `%` symbol mean?
-@rbaia28
+@rbaia28 called a modulus, shows the remainder
 
 1. What property can I use to find out how many letters are in a word in js?
 @WaymonBrown84
