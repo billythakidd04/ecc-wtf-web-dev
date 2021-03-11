@@ -222,7 +222,7 @@ echo $stuff[$counter];
 @margeschrec a for loop is used when we already know the number of iterations, while loop is used for an unknown number of iterations
 
 1. How do I get my js file to run on my webpage?
-@vricci518
+@vricci518 use the script tag, it can be placed within the head of the html file. For Bootstrap it recomended to put is just above the /body tag to the page can load first.
 
 1. What does the `%` symbol mean?
 @rbaia28
