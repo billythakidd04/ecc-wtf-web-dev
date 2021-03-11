@@ -235,6 +235,7 @@ echo $stuff[$counter];
 
 1. What is the difference between `document.write()` and `console.log()` in js?
 @gc824
+doc write: inserts text into the document. Console log: developers to use to debug and test code.
 
 1. What does the `++` operator do?
 @eiman-kased this is the increment operator: adds one to the variable
