@@ -219,7 +219,7 @@ echo $stuff[$counter];
 @nburd90
 
 1. What is the difference between a while loop and a for loop?
-@margeschrec
+@margeschrec a for loop is used when we already know the number of iterations, while loop is used for an unknown number of iterations
 
 1. How do I get my js file to run on my webpage?
 @vricci518
