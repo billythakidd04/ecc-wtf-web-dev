@@ -216,6 +216,7 @@ echo $stuff[$counter];
 ## 3/10/21
 
 1. How do I create a variable in JS?
+var "variable name" and then assign to value. 
 @nburd90
 
 1. What is the difference between a while loop and a for loop?
