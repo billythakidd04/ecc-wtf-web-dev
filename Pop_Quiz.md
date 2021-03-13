@@ -242,7 +242,7 @@ echo $stuff[$counter];
    @eiman-kased this is the increment operator: adds one to the variable
 
 1. Correct this code: `console.log('There's something wrong here!')`
-   @CharleswithLove
+   @CharleswithLove `console.log("There's something wrong here!")`
 
 1. What is the advantage of using a front end programming language?
    @williamrockowl
