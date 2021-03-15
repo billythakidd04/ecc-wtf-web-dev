@@ -229,7 +229,7 @@ echo $stuff[$counter];
    @rbaia28 called a modulus, returns the division remainder
 
 1. What property can I use to find out how many letters are in a word in js?
-   @WaymonBrown84
+   @WaymonBrown84 string length property
 
 1. What is a conditional?
    @cwlainson
