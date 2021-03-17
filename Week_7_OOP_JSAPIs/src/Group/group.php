@@ -15,23 +15,28 @@ class Group
 		self::$db = self::$db ?? dbConn();
 	}
 
-	public function getID():int{
+	public function getID(): int
+	{
 		return $this->id;
 	}
 
-	public function getGroupNumber():int{
+	public function getGroupNumber(): int
+	{
 		return $this->groupNumber ?? 0;
 	}
 
-	public function setGroupNumber(int $number){
+	public function setGroupNumber(int $number)
+	{
 		$this->groupNumber = $number;
 	}
 
-	public function getRepositoryURL():string{
+	public function getRepositoryURL(): string
+	{
 		return $this->repositoryURL ?? '';
 	}
 
-	public function setRepositoryURL(string $URL){
+	public function setRepositoryURL(string $URL)
+	{
 		$this->repositoryURL = $URL;
 	}
 
@@ -61,9 +66,15 @@ class Group
 		// false on fail true on success
 		$result = self::$db->query($sql);
 		if (!$result) {
-			echo self::$db->error . ', error number: ' . self::$db->errno;
-			self::$db->close();
-			return false;
+			// check if simple duplication
+			if (self::$db->errno === 1062) {
+				$group = self::findGroupByNumber($num);
+			} else {
+				echo self::$db->error . ', error number: ' . self::$db->errno;
+				self::$db->close();
+				return 0;
+			}
+			return $group->getID();
 		}
 		$newID = self::$db->insert_id;
 		self::$db->close();
@@ -75,18 +86,18 @@ class Group
 	 *
 	 * @return array|bool
 	 */
-	public static function listGroups():array
+	public static function listGroups(): array
 	{
 		self::getDBConn();
 
 		$sql = 'SELECT * FROM `Groups` ORDER BY groupNumber ASC';
 		$groups = self::$db->query($sql);
 		if (!$groups) {
-			echo 'Error retrieving groups: '.self::$db->error.', ('.self::$db->errno.')';
+			echo 'Error retrieving groups: ' . self::$db->error . ', (' . self::$db->errno . ')';
 		}
 
 		$retArray = array();
-		while($group = $groups->fetch_object(\Group::class)){
+		while ($group = $groups->fetch_object(\Group::class)) {
 			$retArray[] = $group;
 		}
 
@@ -98,21 +109,43 @@ class Group
 	 *
 	 * @return integer
 	 */
-	public function countMembers():int {
+	public function countMembers(): int
+	{
 		$sql = "select count(*) as count from Students where groupID = $this->id";
 		$count = self::$db->query($sql);
-		if($count !== false){
+		if ($count !== false) {
 			return $count->fetch_array(\MYSQLI_ASSOC)['count'];
 		}
 		return 0;
 	}
 
-	public static function findGroupByID(int $id):Group {
-		$sql = "SELECT * FROM GROUP WHERE id = $id";
+	public static function findGroupByID(int $id): Group
+	{
+		$sql = "SELECT * FROM `Groups` WHERE id = $id";
 		$group = self::$db->query($sql);
-		if(!$group){
+		echo $sql;
+		if (!$group) {
 			throw new Exception(self::$db->error);
 		}
-		return $group->fetch_object(\Group::class);
+		$returnGroup = $group->fetch_object(\Group::class);
+		if(!$returnGroup){
+			throw new Exception("No Group found with id: $id");
+		}
+		return $returnGroup;
+	}
+
+	public static function findGroupByNumber(int $num): Group
+	{
+		$sql = "SELECT * FROM `Groups` WHERE groupNumber = $num";
+		$group = self::$db->query($sql);
+		echo $sql;
+		if (!$group) {
+			throw new Exception(self::$db->error);
+		}
+		$returnGroup = $group->fetch_object(\Group::class);
+		if(!$returnGroup){
+			throw new Exception("No Group found with number: $num");
+		}
+		return $returnGroup;
 	}
 }

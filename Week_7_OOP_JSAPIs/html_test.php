@@ -163,7 +163,7 @@ ini_set('display_errors', 1);
 
 			if (isset($_POST['submit-btn'])) {
 				if (!empty(trim($_POST['firstName']))) {
-					$student->firstName = trim($_POST['firstName']);
+					$student->setFirstName(trim($_POST['firstName']));
 				} else {
 					$bError = true;
 					$error['firstName'] = 'First Name cannot be empty!!';
@@ -201,6 +201,8 @@ ini_set('display_errors', 1);
 
 				if (!empty(trim($_POST['groupNum']))) {
 					$group->setGroupNumber($_POST['groupNum']);
+					// Preemptively set the group ID in case creating the group in the db fails
+					$student->setGroupID($_POST['groupNum']);
 				} else {
 					$bError = true;
 					$error['groupNum'] = 'Select a Group Number!!';
@@ -215,7 +217,7 @@ ini_set('display_errors', 1);
 				if (!$bError) {
 					$groupID = $group->createGroup();
 					if($groupID){
-						$student->groupID = $groupID;
+						$student->setGroupID($groupID);
 						echo '<h1>Group created success</h1>';
 					} else {
 						echo '<h1>GROUP FAILURE</h1>';

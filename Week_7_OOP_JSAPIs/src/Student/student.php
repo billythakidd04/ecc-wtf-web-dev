@@ -82,12 +82,13 @@ class Student
 		$e = self::$db->real_escape_string($this->email);
 		$r = self::$db->real_escape_string(urlencode($this->repositoryURL));
 
-		$sql = "INSERT INTO `Students` (lastName, firstName, email, repositoryURL, groupID) VALUES ('$f', '$l', '$e', '$r', $this->groupID)";
+		$sql = "INSERT INTO `Students` (firstName, lastName, email, repositoryURL, groupID) VALUES ('$f', '$l', '$e', '$r', $this->groupID)";
 
 		// false on fail true on success
 		$result = self::$db->query($sql);
 		if (!$result) {
 			echo self::$db->error . ', error number: ' . self::$db->errno;
+			var_dump($sql);
 			self::$db->close();
 			return false;
 		}
