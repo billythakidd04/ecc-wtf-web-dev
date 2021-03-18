@@ -55,11 +55,21 @@ ini_set('display_errors', 1);
 				doloribus eos!
 			</p>
 			<ul>
-				<li>thing</li>
+				<li>
+					<a class="btn btn-primary" onclick="document.getElementById('js-output').innerHTML=isHighest(641,-26948,'asdfg','6544'-645,2)+' is the highest number! Check the logs!';" href='#js-output'>
+						Click Here for Is Highest!!
+					</a>
+				</li>
+				<li>
+					<a class="btn btn-primary" onclick="document.getElementById('js-output').innerHTML='Check the logs!';isEven(641,-26948,'asdfg','6544'-645,2);" href='#js-output'>
+						Click Here for Is Even!!
+					</a>
+				</li>
 				<li>thing</li>
 				<li>thing</li>
 				<li>thing</li>
 			</ul>
+			<div id="js-output"></div>
 		</div>
 		<div id="tables">
 			<h3>This is my table section!</h3>
