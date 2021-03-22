@@ -33,6 +33,7 @@ These are the materials for my web development course at ECC for workforce devel
 - `git add filename`: will stage the changes in *filename* to be committed
 - `git add .`: will stage the changes in *all files* to be committed
 - `git commit -am "this is where you message goes"`: will stage and commit all files that are currently tracked by git
+- `git branch --merged main | grep -v 'main$' | xargs git branch -d` this allows you to safely delete all branches that have been merged into master on github
 
 ## Git Workflow
 
