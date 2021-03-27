@@ -1,0 +1,78 @@
+nav, .navbar {
+    height: 50px;
+    display: block;
+    margin-bottom: 30px;
+}
+
+nav a {
+    color: inherit;
+    text-align: center;
+    vertical-align: center;
+    padding: 15px 0px;
+    text-decoration: none;
+    float: left;
+    border-radius: 5px;
+    width: 25%;
+    background-color: rgb(51, 4, 4);
+}
+
+nav .dropdown {
+    float: left;
+    padding: 0px;
+    margin: 0px auto;
+    width: 25%;
+    border-radius: 5px;
+}
+
+nav .dropdown:hover{
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+nav .dropdown button {
+    color: white;
+    font-size: 16px;
+    text-align: center;
+    background-color: inherit;
+    border: none;
+    outline: none;
+    font-family: inherit;
+    padding: 15px 30px;
+}
+
+nav .dropdown button:hover {
+    cursor: pointer;
+}
+
+nav .dropdown .dropdown-content {
+    display: none;
+}
+
+nav .dropdown:hover .dropdown-content {
+    display: block;
+    position: absolute;
+    top: 50px;
+    margin: 0px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    width: 225px;
+}
+
+nav .dropdown .dropdown-content a {
+    float: none;
+    padding: 12px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    color: white;
+    width: 90%;
+}
+
+nav .dropdown .dropdown-content a:hover {
+    /* background-color: rgb(117, 142, 224); */
+    background-color:black;
+}
+
+nav .dropbtn {
+    max-height: 50px;
+}
