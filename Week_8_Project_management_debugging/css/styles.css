@@ -1,0 +1,64 @@
+body {
+    color: white;
+    background-color: #313131;
+}
+
+::selection {
+    background-color: white;
+    color: black;
+}
+
+div {
+    display: block;
+    text-align: center;
+    width: 50%;
+    background-color: rgb(51, 4, 4);
+    margin: 10px auto;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+div:hover {
+    background-color: black;
+    color: cyan;
+}
+
+img {
+    width: 90%;
+    border-radius: 10px;
+}
+
+#images > div {
+    width: 40%;
+    display: inline-block;
+    box-shadow: none;
+    vertical-align: top;
+    height: auto;
+}
+
+a img:hover, div:hover {
+    box-shadow: 5px 5px 5px grey;
+}
+
+table, td {
+    padding: 1px 2px;
+    border: 2px solid blue;
+    border-collapse: collapse;
+}
+
+table {
+    width: 75%;
+    margin: 0px auto;
+}
+
+ul {
+    text-align: left;
+}
+
+form {
+    text-align: left;
+}
+
+input {
+    margin: 2px 1px;
+}
