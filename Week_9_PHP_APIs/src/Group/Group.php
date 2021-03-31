@@ -2,6 +2,8 @@
 
 namespace WFDWeb;
 
+use WFDWeb\Database;
+
 class Group
 {
 	private $id;
