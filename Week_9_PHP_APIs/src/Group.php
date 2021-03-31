@@ -119,7 +119,7 @@ class Group
 		return $retGroup;
 	}
 
-	public function findGroupByNumber(): Group
+	public function findGroupByNumber()
 	{
 		$dbCon = $this->db->getConnection();
 		$sql = "SELECT * FROM `Groups` WHERE groupNumber = ".$dbCon->real_escape_string($this->getGroupNumber());
