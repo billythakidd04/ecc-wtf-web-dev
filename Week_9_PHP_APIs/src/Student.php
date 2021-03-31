@@ -4,9 +4,10 @@ namespace WFDWeb;
 
 require __DIR__ . '/../vendor/autoload.php';
 
+use JsonSerializable;
 use WFDWeb\Group;
 
-class Student
+class Student implements JsonSerializable
 {
 	private int $id;
 	private string $firstName;
@@ -171,5 +172,17 @@ class Student
 	public function setEmail(string $email)
 	{
 		$this->email = $email;
+	}
+
+	public function jsonSerialize()
+	{
+		return [
+			'id' => $this->getID(),
+			'first_name' => $this->getFirstName(),
+			'last_name' => $this->getLastName(),
+			'email' => $this->getEmail(),
+			'repo_url' => $this->getRepositoryURL(),
+			'group_number' => $this->getGroup()->getID(),
+		];
 	}
 }
