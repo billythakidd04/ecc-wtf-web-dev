@@ -15,7 +15,7 @@ class Student
 
 	private Database $db;
 
-	public function __construct(string $fname, string $lname, string $email, string $repoURL, int $groupID = null)
+	public function __construct(string $fname = '', string $lname = '', string $email = '', string $repoURL = '', int $groupID = null)
 	{
 		$this->firstName = $fname;
 		$this->lastName = $lname;

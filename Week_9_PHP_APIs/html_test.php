@@ -1,5 +1,8 @@
 <?php
 ini_set('display_errors', 1);
+
+use WFDWeb\Group;
+use WFDWeb\Student;
 ?>
 <!doctype html>
 <html>
@@ -83,7 +86,7 @@ ini_set('display_errors', 1);
 					require_once('src/Student/student.php');
 
 					// get an array of all groups from the db
-					$groups = \Group::listGroups();
+					$groups = Group::listGroups();
 
 					// make sure we have some groups to loop through
 					if (!empty($groups)) {
@@ -223,14 +226,14 @@ ini_set('display_errors', 1);
 				}
 
 				if (!$bError) {
-					$groupID = $group->createGroup();
+					$groupID = $group->saveToDB();
 					if ($groupID) {
 						$student->groupID = $groupID;
 						echo '<h1>Group created success</h1>';
 					} else {
 						echo '<h1>GROUP FAILURE</h1>';
 					}
-					echo ($student->createStudent() ? '<h1>Student created success</h1>' : '<h1>STUDENT FAILURE</h1>');
+					echo ($student->saveToDB() ? '<h1>Student created success</h1>' : '<h1>STUDENT FAILURE</h1>');
 				}
 			}
 			?>

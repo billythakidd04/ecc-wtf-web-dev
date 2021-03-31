@@ -10,7 +10,7 @@ class Group
 
 	private Database $db;
 
-	public function __construct(int $groupNum, string $repoURL)
+	public function __construct(int $groupNum = 0, string $repoURL = '')
 	{
 		$this->groupNumber = $groupNum;
 		$this->repositoryURL = $repoURL;
