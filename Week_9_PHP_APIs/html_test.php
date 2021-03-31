@@ -120,7 +120,7 @@ ini_set('display_errors', 1);
 							// loop over each student
 							foreach ($students as $student) {
 								// create slot for the student with first and last name
-								echo '<td>'.$student->getFirstName().' '.$student->getLastName().'</td>';
+								echo '<td>' . $student->getFirstName() . ' ' . $student->getLastName() . '</td>';
 								// don't forget to update the count
 								$memCount++;
 							}
@@ -224,26 +224,26 @@ ini_set('display_errors', 1);
 
 				if (!$bError) {
 					$groupID = $group->createGroup();
-					if($groupID){
+					if ($groupID) {
 						$student->groupID = $groupID;
 						echo '<h1>Group created success</h1>';
 					} else {
 						echo '<h1>GROUP FAILURE</h1>';
 					}
-					echo ($student->createStudent()? '<h1>Student created success</h1>':'<h1>STUDENT FAILURE</h1>');
+					echo ($student->createStudent() ? '<h1>Student created success</h1>' : '<h1>STUDENT FAILURE</h1>');
 				}
 			}
 			?>
 
 			<form method="post" name='testform' id='testform' action='#testform'>
 				<fieldset class="form-group">
-				<div class="form-row">
-					<legend>User Info</legend>
-					<label for="firstName">First Name</label>
-					<input type="text" class="form-control <?=(isset($error['firstName'])?'is-invalid':'')?>" id="firstName" name="firstName" <?= ($student->getFirstName() ? 'value="' . $student->getFirstName() . '"' : ''); ?> placeholder="Enter your first name" required />
-					<label for="lastName">Last Name</label>
-					<input type="text" class="form-control" id="lastName" name="lastName" <?= ($student->getLastName() ? 'value="' . $student->getLastName() . '"' : ''); ?> placeholder="Enter you last name" required>
-				</div>
+					<div class="form-row">
+						<legend>User Info</legend>
+						<label for="firstName">First Name</label>
+						<input type="text" class="form-control <?= (isset($error['firstName']) ? 'is-invalid' : '') ?>" id="firstName" name="firstName" <?= ($student->getFirstName() ? 'value="' . $student->getFirstName() . '"' : ''); ?> placeholder="Enter your first name" required />
+						<label for="lastName">Last Name</label>
+						<input type="text" class="form-control" id="lastName" name="lastName" <?= ($student->getLastName() ? 'value="' . $student->getLastName() . '"' : ''); ?> placeholder="Enter you last name" required>
+					</div>
 					<label for="email">Email</label>
 					<input type="email" class="form-control" id="email" name="email" <?= ($student->getEmail() ? 'value="' . $student->getEmail() . '"' : ''); ?> placeholder="Enter your email" required><br />
 					<label for="studentRepoURL">Personal Repository URL</label>
@@ -269,7 +269,7 @@ ini_set('display_errors', 1);
 					<label for="groupURL">Group Repo URL</label>
 					<input type="url" id="groupURL" name="groupURL" <?= ($group->getRepositoryURL() ? 'value="' . $group->getRepositoryURL() . '"' : ''); ?> required></br>
 				</fieldset>
-				<input type="submit" name="submit-btn" value="Go"/>
+				<input type="submit" name="submit-btn" value="Go" />
 			</form>
 		</div>
 	</main>

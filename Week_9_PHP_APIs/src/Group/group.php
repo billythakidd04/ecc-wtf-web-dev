@@ -1,5 +1,6 @@
 <?php
-require_once("src/DB/db_connect.php");
+
+namespace WFDWeb;
 
 class Group
 {
@@ -7,66 +8,45 @@ class Group
 	private $groupNumber;
 	private $repositoryURL;
 
-	private static $db;
+	private Database $db;
 
-	private static function getDBConn()
+	public function __construct(int $groupNum, string $repoURL)
 	{
-		// connect to db
-		self::$db = self::$db ?? dbConn();
-	}
-
-	public function getID():int{
-		return $this->id;
-	}
-
-	public function getGroupNumber():int{
-		return $this->groupNumber ?? 0;
-	}
-
-	public function setGroupNumber(int $number){
-		$this->groupNumber = $number;
-	}
-
-	public function getRepositoryURL():string{
-		return $this->repositoryURL ?? '';
-	}
-
-	public function setRepositoryURL(string $URL){
-		$this->repositoryURL = $URL;
+		$this->groupNumber = $groupNum;
+		$this->repositoryURL = $repoURL;
 	}
 
 	/**
-	 * createGroup functions
+	 * saveToDB saves the group object in the db and returns the new id
 	 *
 	 * @return boolean
 	 */
-	function createGroup(): int
+	public function saveToDB(): int
 	{
-		self::getDBConn();
+		$dbCon = $this->db->getConnection();
 		// check if we have the info we need
 		if (empty($this->groupNumber) || empty($this->repositoryURL)) {
 			// log error
 			echo 'Number AND Repository URL cannot be blank';
-			throw new Exception('Number AND Repository URL cannot be blank');
+			throw new \Exception('Number AND Repository URL cannot be blank');
 		}
 
 		// escape our values so we don't get hacked
-		$num = self::$db->real_escape_string($this->groupNumber);
-		$repositoryURL = self::$db->real_escape_string(urlencode($this->repositoryURL));
+		$num = $dbCon->real_escape_string($this->groupNumber);
+		$repositoryURL = $dbCon->real_escape_string(urlencode($this->repositoryURL));
 
 		$sql = "INSERT INTO `Groups` (groupNumber, repositoryURL) VALUES ($num, '$repositoryURL')";
-
-		// echo $sql;
-
 		// false on fail true on success
-		$result = self::$db->query($sql);
+		$result = $dbCon->query($sql);
+
 		if (!$result) {
-			echo self::$db->error . ', error number: ' . self::$db->errno;
-			self::$db->close();
+			echo $dbCon->error . ', error number: ' . $dbCon->errno;
+			$dbCon->close();
 			return false;
 		}
-		$newID = self::$db->insert_id;
-		self::$db->close();
+
+		$newID = $dbCon->insert_id;
+		$dbCon->close();
 		return $newID;
 	}
 
@@ -75,21 +55,24 @@ class Group
 	 *
 	 * @return array|bool
 	 */
-	public static function listGroups():array
+	public static function listGroups(): array
 	{
-		self::getDBConn();
+		$db = new Database();
+		$dbCon = $db->getConnection();
 
 		$sql = 'SELECT * FROM `Groups` ORDER BY groupNumber ASC';
-		$groups = self::$db->query($sql);
+		$groups = $dbCon->query($sql);
+
 		if (!$groups) {
-			echo 'Error retrieving groups: '.self::$db->error.', ('.self::$db->errno.')';
+			echo 'Error retrieving groups: ' . $dbCon->error . ', (' . $dbCon->errno . ')';
 		}
 
 		$retArray = array();
-		while($group = $groups->fetch_object(\Group::class)){
+		while ($group = $groups->fetch_object(\Group::class)) {
 			$retArray[] = $group;
 		}
 
+		$db->close();
 		return $retArray;
 	}
 
@@ -98,21 +81,58 @@ class Group
 	 *
 	 * @return integer
 	 */
-	public function countMembers():int {
+	public function countMembers(): int
+	{
+		$dbCon = $this->db->getConnection();
 		$sql = "select count(*) as count from Students where groupID = $this->id";
-		$count = self::$db->query($sql);
-		if($count !== false){
+		$count = $dbCon->query($sql);
+
+		if ($count !== false) {
 			return $count->fetch_array(\MYSQLI_ASSOC)['count'];
 		}
+
+		$this->db->close();
 		return 0;
 	}
 
-	public static function findGroupByID(int $id):Group {
+	public static function findGroupByID(int $id): Group
+	{
+		$db = new Database();
+		$dbCon = $db->getConnection();
 		$sql = "SELECT * FROM GROUP WHERE id = $id";
-		$group = self::$db->query($sql);
-		if(!$group){
-			throw new Exception(self::$db->error);
+		$group = $dbCon->query($sql);
+
+		if (!$group) {
+			throw new \Exception($dbCon->error);
 		}
-		return $group->fetch_object(\Group::class);
+
+		$retGroup = $group->fetch_object(\Group::class);
+		$db->close();
+		return $retGroup;
+	}
+
+	public function getID(): int
+	{
+		return $this->id;
+	}
+
+	public function getGroupNumber(): int
+	{
+		return $this->groupNumber ?? 0;
+	}
+
+	public function setGroupNumber(int $number)
+	{
+		$this->groupNumber = $number;
+	}
+
+	public function getRepositoryURL(): string
+	{
+		return $this->repositoryURL ?? '';
+	}
+
+	public function setRepositoryURL(string $URL)
+	{
+		$this->repositoryURL = $URL;
 	}
 }
