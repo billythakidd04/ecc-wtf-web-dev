@@ -33,10 +33,31 @@ $app->get('/', function (Request $request, Response $response, array $args) {
 
 // handle show all students route `/students/`
 $app->get('/students/', function (Request $request, Response $response, array $args) {
-	echo 'show all students';
 	$students = Student::listStudents();
 	$studentsJSON = json_encode($students);
 	$response->getBody()->write($studentsJSON);
+
+	return $response;
+});
+
+// handle show student route `/student/{id|name}`
+$app->get('/student/{value}', function (Request $request, Response $response, array $args) {
+	$value = $args['value'];
+	if($value === '0'){
+		// we are going to check against ID and names and neither can be zero but will make intval crazy
+		throw new InvalidArgumentException("Zero is not a valid identifier");
+	}
+
+	$student = new Student();
+	if(intval($value)){
+		// we can assume they gave us an id
+		$student = Student::findStudentByID($value);
+	} else {
+		$student = Student::findStudentByName($value);
+	}
+
+	$studentJSON = json_encode($student);
+	$response->getBody()->write($studentJSON);
 
 	return $response;
 });
