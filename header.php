@@ -7,4 +7,6 @@
             <li><a href="../Week_5_Databases/html_test.php">Week 5 - Databases</a></li>
             <li><a href="../Week_6_JS/html_test.php">Week 6 - JavaScript</a></li>
             <li><a href="../Week_7_OOP_JSAPIs/html_test.php">Week 7 - PHP OOP</a></li>
+            <li><a href="#">Week 8 - Debug and project management (nothing to see here)</a></li>
+            <li><a href="../Week_9_PHP_APIs/html_test.php">Week 9 - PHP APIs</a></li>
         </ul>

@@ -1,5 +1,8 @@
 <?php
+
 namespace WFDWeb;
+
+require __DIR__ . '/../vendor/autoload.php';
 
 use mysqli;
 

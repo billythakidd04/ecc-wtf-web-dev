@@ -1,6 +1,8 @@
 <?php
 ini_set('display_errors', 1);
 
+require __DIR__.'/vendor/autoload.php';
+
 use WFDWeb\Group;
 use WFDWeb\Student;
 ?>
@@ -81,10 +83,6 @@ use WFDWeb\Student;
 				<thead>
 					<th></th>
 					<?php
-					// tell our server we need the contents of these files
-					require_once('src/Group/group.php');
-					require_once('src/Student/student.php');
-
 					// get an array of all groups from the db
 					$groups = Group::listGroups();
 
@@ -95,6 +93,9 @@ use WFDWeb\Student;
 
 						// loop over each group to get the member count
 						foreach ($groups as $group) {
+							// echo '<pre>';
+							// var_dump($group);
+							// echo '</pre>';
 							// if max is less than current groups count, set max to current count otherwise leave it
 							$maxNum = ($maxNum < $group->countMembers() ? $group->countMembers() : $maxNum);
 						}
@@ -176,7 +177,7 @@ use WFDWeb\Student;
 
 			if (isset($_POST['submit-btn'])) {
 				if (!empty(trim($_POST['firstName']))) {
-					$student->firstName = trim($_POST['firstName']);
+					$student->setFirstName(trim($_POST['firstName']));
 				} else {
 					$bError = true;
 					$error['firstName'] = 'First Name cannot be empty!!';
@@ -228,12 +229,12 @@ use WFDWeb\Student;
 				if (!$bError) {
 					$groupID = $group->saveToDB();
 					if ($groupID) {
-						$student->groupID = $groupID;
-						echo '<h1>Group created success</h1>';
+						$student->setGroupID($groupID);
+						echo '<h1>Group save success</h1>';
 					} else {
-						echo '<h1>GROUP FAILURE</h1>';
+						echo '<h1>GROUP SAVE FAILURE</h1>';
 					}
-					echo ($student->saveToDB() ? '<h1>Student created success</h1>' : '<h1>STUDENT FAILURE</h1>');
+					echo ($student->saveToDB() ? '<h1>Student save success</h1>' : '<h1>STUDENT SAVE FAILURE</h1>');
 				}
 			}
 			?>

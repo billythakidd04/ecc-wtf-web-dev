@@ -2,6 +2,8 @@
 
 namespace WFDWeb;
 
+require __DIR__ . '/../vendor/autoload.php';
+
 use WFDWeb\Database;
 
 class Group
@@ -12,10 +14,9 @@ class Group
 
 	private Database $db;
 
-	public function __construct(int $groupNum = 0, string $repoURL = '')
+	public function __construct()
 	{
-		$this->groupNumber = $groupNum;
-		$this->repositoryURL = $repoURL;
+		$this->db = $this->db ?? new Database();
 	}
 
 	/**
@@ -37,18 +38,22 @@ class Group
 		$num = $dbCon->real_escape_string($this->groupNumber);
 		$repositoryURL = $dbCon->real_escape_string(urlencode($this->repositoryURL));
 
+		// check for duplicate
+		$check = $this->findGroupByNumber();
+		if($check){
+			return $check->getID();
+		}
+
 		$sql = "INSERT INTO `Groups` (groupNumber, repositoryURL) VALUES ($num, '$repositoryURL')";
 		// false on fail true on success
 		$result = $dbCon->query($sql);
 
 		if (!$result) {
 			echo $dbCon->error . ', error number: ' . $dbCon->errno;
-			$dbCon->close();
 			return false;
 		}
 
 		$newID = $dbCon->insert_id;
-		$dbCon->close();
 		return $newID;
 	}
 
@@ -70,11 +75,10 @@ class Group
 		}
 
 		$retArray = array();
-		while ($group = $groups->fetch_object(\Group::class)) {
+		while ($group = $groups->fetch_object(Group::class)) {
 			$retArray[] = $group;
 		}
 
-		$db->close();
 		return $retArray;
 	}
 
@@ -86,30 +90,49 @@ class Group
 	public function countMembers(): int
 	{
 		$dbCon = $this->db->getConnection();
-		$sql = "select count(*) as count from Students where groupID = $this->id";
+		$sql = "SELECT COUNT(*) AS count FROM Students WHERE groupID = $this->id";
 		$count = $dbCon->query($sql);
 
 		if ($count !== false) {
 			return $count->fetch_array(\MYSQLI_ASSOC)['count'];
 		}
 
-		$this->db->close();
 		return 0;
 	}
 
-	public static function findGroupByID(int $id): Group
+	public function findGroupByID(): Group
 	{
-		$db = new Database();
-		$dbCon = $db->getConnection();
-		$sql = "SELECT * FROM GROUP WHERE id = $id";
+		$dbCon = $this->db->getConnection();
+		$sql = "SELECT * FROM GROUP WHERE id = ".$this->getID();
 		$group = $dbCon->query($sql);
 
 		if (!$group) {
-			throw new \Exception($dbCon->error);
+			if($dbCon->error){
+				throw new \Exception($dbCon->error);
+			}
+			return $group;
 		}
 
-		$retGroup = $group->fetch_object(\Group::class);
-		$db->close();
+		$retGroup = $group->fetch_object(Group::class);
+
+		return $retGroup;
+	}
+
+	public function findGroupByNumber(): Group
+	{
+		$dbCon = $this->db->getConnection();
+		$sql = "SELECT * FROM `Groups` WHERE groupNumber = ".$dbCon->real_escape_string($this->getGroupNumber());
+		$group = $dbCon->query($sql);
+
+		if (!$group) {
+			if($dbCon->error){
+				throw new \Exception($dbCon->error);
+			}
+			return $group;
+		}
+
+		$retGroup = $group->fetch_object(Group::class);
+
 		return $retGroup;
 	}
 

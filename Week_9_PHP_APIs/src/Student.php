@@ -2,6 +2,8 @@
 
 namespace WFDWeb;
 
+require __DIR__ . '/../vendor/autoload.php';
+
 use WFDWeb\Group;
 
 class Student
@@ -15,13 +17,9 @@ class Student
 
 	private Database $db;
 
-	public function __construct(string $fname = '', string $lname = '', string $email = '', string $repoURL = '', int $groupID = null)
+	public function __construct()
 	{
-		$this->firstName = $fname;
-		$this->lastName = $lname;
-		$this->email = $email;
-		$this->repositoryURL = $repoURL;
-		$this->groupID = $groupID;
+		$this->db = $this->db ?? new Database();
 	}
 
 	public function getGroup(): Group
@@ -48,23 +46,23 @@ class Student
 	 */
 	public function saveToDB(): bool
 	{
-		$dbCon = $this->db->connection ?? new Database();
+		$dbCon = $this->db->getConnection() ?? new Database();
 
 		$f = $dbCon->real_escape_string($this->firstName);
 		$l = $dbCon->real_escape_string($this->lastName);
 		$e = $dbCon->real_escape_string($this->email);
 		$r = $dbCon->real_escape_string(urlencode($this->repositoryURL));
 
-		$sql = "INSERT INTO `Students` (lastName, firstName, email, repositoryURL, groupID) VALUES ('$f', '$l', '$e', '$r', $this->groupID)";
+		$sql = "INSERT INTO `Students` (firstName, lastName, email, repositoryURL, groupID) VALUES ('$f', '$l', '$e', '$r', $this->groupID)";
 
 		// false on fail true on success
 		$result = $dbCon->query($sql);
 		if (!$result) {
 			echo $dbCon->error . ', error number: ' . $dbCon->errno;
-			$dbCon->close();
+
 			return false;
 		}
-		$dbCon->close();
+
 		return true;
 	}
 
@@ -103,8 +101,6 @@ class Student
 			$retArray[] = $student;
 		}
 
-		$dbCon->close();
-
 		return $retArray;
 	}
 
@@ -113,9 +109,10 @@ class Student
 	 *
 	 * @return array
 	 */
-	public static function listStudentsByGroup(\Group $group): array
+	public static function listStudentsByGroup(Group $group): array
 	{
-		$dbCon = new Database();
+		$db = new Database();
+		$dbCon = $db->getConnection();
 
 		$sql = 'SELECT * FROM `Students` WHERE `Students`.`groupID`= ' . $group->getID() . ' ORDER BY firstName ASC';
 		$students = $dbCon->query($sql);
@@ -124,11 +121,9 @@ class Student
 		}
 
 		$retArray = array();
-		while ($student = $students->fetch_object(\Student::class)) {
+		while ($student = $students->fetch_object(Student::class)) {
 			$retArray[] = $student;
 		}
-
-		$dbCon->close();
 
 		return $retArray;
 	}
