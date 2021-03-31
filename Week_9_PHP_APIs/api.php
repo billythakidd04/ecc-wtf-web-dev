@@ -1,12 +1,13 @@
 <?php
 ini_set('display_errors', 1);
 
+require 'vendor/autoload.php';
+
 use \Slim\Factory\AppFactory;
 use \Psr\Http\Message\ResponseInterface as Response;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \WFDWeb\Student;
 
-require 'vendor/autoload.php';
 
 $app = AppFactory::create();
 
