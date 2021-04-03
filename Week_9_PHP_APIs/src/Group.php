@@ -100,10 +100,11 @@ class Group
 		return 0;
 	}
 
-	public function findGroupByID(): Group
+	public static function findGroupByID($id): Group
 	{
-		$dbCon = $this->db->getConnection();
-		$sql = "SELECT * FROM GROUP WHERE id = ".$this->getID();
+		$db = new Database();
+		$dbCon = $db->getConnection();
+		$sql = "SELECT * FROM `Groups` WHERE id = $id";
 		$group = $dbCon->query($sql);
 
 		if (!$group) {

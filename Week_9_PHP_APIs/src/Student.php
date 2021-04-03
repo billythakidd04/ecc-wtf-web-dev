@@ -4,9 +4,10 @@ namespace WFDWeb;
 
 require __DIR__ . '/../vendor/autoload.php';
 
+use JsonSerializable;
 use WFDWeb\Group;
 
-class Student
+class Student implements JsonSerializable
 {
 	private int $id;
 	private string $firstName;
@@ -24,7 +25,8 @@ class Student
 
 	public function getGroup(): Group
 	{
-		$group = Group::findGroupByID($this->groupID);
+		$group = new Group;
+		$group = $group->findGroupByID($this->groupID);
 		return $group;
 	}
 
@@ -67,18 +69,82 @@ class Student
 	}
 
 	/**
+	 * Find Student by Name searches first AND last name
+	 * @var string $name
+	 *
+	 * @return Student|array|false
+	 */
+	public static function findStudentByName($name)
+	{
+		$db = new Database();
+		$dbCon = $db->getConnection();
+
+		$name = $dbCon->real_escape_string($name);
+
+		$sql = "SELECT * FROM `Students` WHERE lastName='$name' OR firstname='$name'";
+
+		$result = $dbCon->query($sql);
+
+		$retArray = array();
+		if ($result) {
+			while ($student = $result->fetch_object(Student::class)) {
+				$retArray[] = $student;
+			}
+			if (count($retArray) == 1) {
+				return $retArray[0];
+			}
+			return $retArray;
+		}
+		return false;
+	}
+
+	/**
 	 * Find Student by Last Name
 	 * @var string $lastName
 	 *
 	 * @return Student
 	 */
-	public function findStudentByLastName($lastName): Student
+	public static function findStudentByLastName($lastName): Student
 	{
-		$dbCon = $this->db->connection ?? new Database();
+		$db = new Database();
+		$dbCon = $db->getConnection();
 
-		$sql = "Select count(id), id from students where lastName=\'$lastName\'";
+		$lastName = $db->real_escape_string($lastName);
 
-		return $dbCon->query($sql);
+		$sql = "SELECT * FROM `Students` WHERE lastName='$lastName'";
+
+		$result = $dbCon->query($sql);
+
+		if ($result) {
+			while ($student = $result->fetch_object(Student::class)) {
+				$retArray[] = $student;
+			}
+			if (count($retArray == 1)) {
+				return $retArray[0];
+			}
+			return $retArray;
+		}
+		return false;
+	}
+
+	/**
+	 * Find Student by ID
+	 * @var int $id
+	 *
+	 * @return Student
+	 */
+	public static function findStudentByID($id): Student
+	{
+		$db = new Database();
+		$dbCon = $db->getConnection();
+
+		$sql = "SELECT * FROM `Students` WHERE id=$id";
+
+		$result = $dbCon->query($sql);
+		if ($result) {
+			return $result->fetch_object(self::class);
+		}
+		return false;
 	}
 
 	/**
@@ -88,16 +154,18 @@ class Student
 	 */
 	public static function listStudents(): array
 	{
-		$dbCon = new Database();
+		$db = new Database();
+		$dbCon = $db->getConnection();
 
 		$sql = 'SELECT * FROM `Students` ORDER BY firstName ASC';
+
 		$students = $dbCon->query($sql);
 		if (!$students) {
 			echo 'Error retrieving students: ' . $dbCon->error . ', (' . $dbCon->errno . ')';
 		}
 
 		$retArray = array();
-		while ($student = $students->fetch_object(\Student::class)) {
+		while ($student = $students->fetch_object(Student::class)) {
 			$retArray[] = $student;
 		}
 
@@ -130,7 +198,7 @@ class Student
 
 	public function getID(): int
 	{
-		return $this->id;
+		return $this->id ?? 0;
 	}
 
 	public function getFirstName(): string
@@ -171,5 +239,17 @@ class Student
 	public function setEmail(string $email)
 	{
 		$this->email = $email;
+	}
+
+	public function jsonSerialize()
+	{
+		return [
+			'id' => $this->getID(),
+			'first_name' => $this->getFirstName(),
+			'last_name' => $this->getLastName(),
+			'email' => $this->getEmail(),
+			'repo_url' => urldecode($this->getRepositoryURL()),
+			'group_number' => $this->getGroup()->getGroupNumber(),
+		];
 	}
 }
