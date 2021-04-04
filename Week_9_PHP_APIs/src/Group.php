@@ -174,7 +174,7 @@ class Group implements JsonSerializable
 
 	public function getRepositoryURL(): string
 	{
-		return $this->repositoryURL ?? '';
+		return urldecode($this->repositoryURL) ?? '';
 	}
 
 	public function jsonSerialize()

@@ -24,11 +24,11 @@ class Student implements JsonSerializable
 	}
 
 	/**
-	 * Undocumented function
+	 * saveToDB saves the student to the db and updates if they have an id set
 	 *
-	 * @return boolean
+	 * @return Student|false return the Student object on success and false on failure
 	 */
-	public function saveToDB(): bool
+	public function saveToDB(): mixed
 	{
 		$dbCon = $this->db->getConnection() ?? new Database();
 
@@ -37,8 +37,15 @@ class Student implements JsonSerializable
 		$e = $dbCon->real_escape_string($this->email);
 		$r = $dbCon->real_escape_string(urlencode($this->repositoryURL));
 
-		$sql = "INSERT INTO `Students` (firstName, lastName, email, repositoryURL, groupID) VALUES ('$f', '$l', '$e', '$r', $this->groupID)";
-
+		$sql = '';
+		// assume if id isset, the student already exists
+		if (isset($this->id)) {
+			// if so, update that row
+			$sql = "UPDATE `Students` SET firstName = $f, lastName = $l, email = $e, repositoryURL = $r, groupID = $this->groupID WHERE id=$this->id";
+		} else {
+			// otherwise create new
+			$sql = "INSERT INTO `Students` (firstName, lastName, email, repositoryURL, groupID) VALUES ('$f', '$l', '$e', '$r', $this->groupID)";
+		}
 		// false on fail true on success
 		$result = $dbCon->query($sql);
 		if (!$result) {
@@ -47,7 +54,9 @@ class Student implements JsonSerializable
 			return false;
 		}
 
-		return true;
+		$this->id = $dbCon->insert_id;
+
+		return $this;
 	}
 
 	/**
