@@ -69,7 +69,7 @@ class Student implements JsonSerializable
 
 		$retArray = array();
 		if ($result) {
-			while ($row = $students->fetch_assoc()) {
+			while ($row = $result->fetch_assoc()) {
 				$student = new Student();
 				$student->id = $row['id'];
 				$student->firstName = $row['firstName'];
@@ -106,7 +106,7 @@ class Student implements JsonSerializable
 		$result = $dbCon->query($sql);
 
 		if ($result) {
-			while ($row = $students->fetch_assoc()) {
+			while ($row = $result->fetch_assoc()) {
 				$student = new Student();
 				$student->id = $row['id'];
 				$student->firstName = $row['firstName'];
