@@ -1,7 +1,7 @@
 <?php
 ini_set('display_errors', 1);
 
-require __DIR__.'/vendor/autoload.php';
+require __DIR__ . '/vendor/autoload.php';
 
 use \Slim\Factory\AppFactory;
 use \Psr\Http\Message\ResponseInterface as Response;
@@ -22,7 +22,7 @@ $app->setBasePath((function () {
 		return $scriptDir;
 	}
 	return '';
-})().'/api');// Append route with api cuz I don't want to write that every time also
+})() . '/api'); // Append route with api cuz I don't want to write that every time also
 
 // this route does nothing but print "test" I'm leaving it here for testing
 $app->get('/', function (Request $request, Response $response, array $args) {
@@ -34,22 +34,25 @@ $app->get('/', function (Request $request, Response $response, array $args) {
 // handle show all students route `/students/`
 $app->get('/students/', function (Request $request, Response $response, array $args) {
 	$students = Student::listStudents();
+
 	$studentsJSON = json_encode($students);
 	$response->getBody()->write($studentsJSON);
 
-	return $response;
+	return $response
+		->withHeader('Content-Type', 'application/json')
+		->withStatus(200);
 });
 
 // handle show student route `/student/{id|name}`
 $app->get('/student/{value}', function (Request $request, Response $response, array $args) {
 	$value = $args['value'];
-	if($value === '0'){
+	if ($value === '0') {
 		// we are going to check against ID and names and neither can be zero but will make intval crazy
 		throw new InvalidArgumentException("Zero is not a valid identifier");
 	}
 
 	$student = new Student();
-	if(intval($value)){
+	if (intval($value)) {
 		// we can assume they gave us an id
 		$student = Student::findStudentByID($value);
 	} else {
@@ -59,13 +62,9 @@ $app->get('/student/{value}', function (Request $request, Response $response, ar
 	$studentJSON = json_encode($student);
 	$response->getBody()->write($studentJSON);
 
-	return $response;
+	return $response
+		->withHeader('Content-Type', 'application/json')
+		->withStatus(200);
 });
 
-$app->get('/hello/{name}', function (Request $request, Response $response, array $args) {
-	$name = $args['name'];
-	$response->getBody()->write("Hello, $name");
-
-	return $response;
-});
 $app->run();

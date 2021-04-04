@@ -4,8 +4,8 @@ namespace WFDWeb;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-use JsonSerializable;
 use WFDWeb\Group;
+use JsonSerializable;
 
 class Student implements JsonSerializable
 {
@@ -21,24 +21,6 @@ class Student implements JsonSerializable
 	public function __construct()
 	{
 		$this->db = $this->db ?? new Database();
-	}
-
-	public function getGroup(): Group
-	{
-		$group = new Group;
-		$group = $group->findGroupByID($this->groupID);
-		return $group;
-	}
-
-	public function getGroupID(): int
-	{
-		$group = $this->getGroup();
-		return $group->getID();
-	}
-
-	public function setGroupID(int $id)
-	{
-		$this->groupID = $id;
 	}
 
 	/**
@@ -87,7 +69,15 @@ class Student implements JsonSerializable
 
 		$retArray = array();
 		if ($result) {
-			while ($student = $result->fetch_object(Student::class)) {
+			while ($row = $students->fetch_assoc()) {
+				$student = new Student();
+				$student->id = $row['id'];
+				$student->firstName = $row['firstName'];
+				$student->lastName = $row['lastName'];
+				$student->email = $row['email'];
+				$student->repositoryURL = $row['repositoryURL'];
+				$student->groupID = $row['groupID'];
+
 				$retArray[] = $student;
 			}
 			if (count($retArray) == 1) {
@@ -116,7 +106,15 @@ class Student implements JsonSerializable
 		$result = $dbCon->query($sql);
 
 		if ($result) {
-			while ($student = $result->fetch_object(Student::class)) {
+			while ($row = $students->fetch_assoc()) {
+				$student = new Student();
+				$student->id = $row['id'];
+				$student->firstName = $row['firstName'];
+				$student->lastName = $row['lastName'];
+				$student->email = $row['email'];
+				$student->repositoryURL = $row['repositoryURL'];
+				$student->groupID = $row['groupID'];
+
 				$retArray[] = $student;
 			}
 			if (count($retArray == 1)) {
@@ -142,7 +140,17 @@ class Student implements JsonSerializable
 
 		$result = $dbCon->query($sql);
 		if ($result) {
-			return $result->fetch_object(self::class);
+			$row = $result->fetch_assoc();
+
+			$student = new Student();
+			$student->id = $row['id'];
+			$student->firstName = $row['firstName'];
+			$student->lastName = $row['lastName'];
+			$student->email = $row['email'];
+			$student->repositoryURL = $row['repositoryURL'];
+			$student->groupID = $row['groupID'];
+
+			return $student;
 		}
 		return false;
 	}
@@ -165,7 +173,15 @@ class Student implements JsonSerializable
 		}
 
 		$retArray = array();
-		while ($student = $students->fetch_object(Student::class)) {
+		while ($row = $students->fetch_assoc()) {
+			$student = new Student();
+			$student->id = $row['id'];
+			$student->firstName = $row['firstName'];
+			$student->lastName = $row['lastName'];
+			$student->email = $row['email'];
+			$student->repositoryURL = $row['repositoryURL'];
+			$student->groupID = $row['groupID'];
+
 			$retArray[] = $student;
 		}
 
@@ -189,11 +205,43 @@ class Student implements JsonSerializable
 		}
 
 		$retArray = array();
-		while ($student = $students->fetch_object(Student::class)) {
+		while ($row = $students->fetch_assoc()) {
+			$student = new Student();
+			$student->id = $row['id'];
+			$student->firstName = $row['firstName'];
+			$student->lastName = $row['lastName'];
+			$student->email = $row['email'];
+			$student->repositoryURL = $row['repositoryURL'];
+			$student->groupID = $row['groupID'];
+
 			$retArray[] = $student;
 		}
 
 		return $retArray;
+	}
+
+	public function __set($name, $value)
+	{
+		if ($name === 'id' && $this->id !== null) {
+			throw new \InvalidArgumentException("id of student object cannot be modified");
+		}
+
+		// TODO some verification on values per field
+		// TODO log change
+		$this->$name = $value;
+	}
+
+	public function getGroup(): Group
+	{
+		$group = new Group;
+		$group = $group->findGroupByID($this->groupID);
+		return $group;
+	}
+
+	public function getGroupID(): int
+	{
+		$group = $this->getGroup();
+		return $group->getID();
 	}
 
 	public function getID(): int
@@ -206,19 +254,9 @@ class Student implements JsonSerializable
 		return $this->firstName ?? '';
 	}
 
-	public function setFirstName(string $name)
-	{
-		$this->firstName = $name;
-	}
-
 	public function getLastName(): string
 	{
 		return $this->lastName ?? '';
-	}
-
-	public function setLastName(string $name)
-	{
-		$this->lastName = $name;
 	}
 
 	public function getRepositoryURL(): string
@@ -226,19 +264,9 @@ class Student implements JsonSerializable
 		return $this->repositoryURL ?? '';
 	}
 
-	public function setRepositoryURL(string $URL)
-	{
-		$this->repositoryURL = $URL;
-	}
-
 	public function getEmail(): string
 	{
 		return $this->email ?? '';
-	}
-
-	public function setEmail(string $email)
-	{
-		$this->email = $email;
 	}
 
 	public function jsonSerialize()
