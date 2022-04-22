@@ -50,6 +50,7 @@ These are the materials for my web development course at ECC for workforce devel
 1. `git add <filename(s)>`
 1. `git commit -m "the message that identifies what changes were made"`
 1. `git push -u origin <name-of-branch>`
+1. at this point you can continue editing code and making commits and pushing those commits by repeating steps 2-5 and running `git push` without the -u argument
 1. create a pull request
 1. add a reviewer to the pull request
 1. assign yourself to the pull request
