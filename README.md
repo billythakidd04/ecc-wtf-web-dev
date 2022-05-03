@@ -22,6 +22,8 @@ These are the materials for my web development course at ECC for workforce devel
 - `mv`: moves and renames files and directories
   - `mv directory1/ /some/other/directory/location/` will move the *directory* into the destination provided
   - `mv file_name newFileName` will rename *file_name* to *newFileName*
+- `find`: find files and directories
+  - `find  /tmp -type f -empty -delete` will find all empty files in the `/tmp` dir and delete them
 
 ## Useful git commands
 
