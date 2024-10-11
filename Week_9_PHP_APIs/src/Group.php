@@ -4,9 +4,10 @@ namespace WFDWeb;
 
 require __DIR__ . '/../vendor/autoload.php';
 
+use JsonSerializable;
 use WFDWeb\Database;
 
-class Group
+class Group implements JsonSerializable
 {
 	private $id;
 	private $groupNumber;
@@ -40,7 +41,7 @@ class Group
 
 		// check for duplicate
 		$check = $this->findGroupByNumber();
-		if($check){
+		if ($check) {
 			return $check->getID();
 		}
 
@@ -75,7 +76,11 @@ class Group
 		}
 
 		$retArray = array();
-		while ($group = $groups->fetch_object(Group::class)) {
+		while ($row = $groups->fetch_assoc()) {
+			$group = new Group();
+			$group->id = $row['id'];
+			$group->groupNumber = $row['groupNumber'];
+			$group->repositoryURL = $row['repositoryURL'];
 			$retArray[] = $group;
 		}
 
@@ -108,13 +113,17 @@ class Group
 		$group = $dbCon->query($sql);
 
 		if (!$group) {
-			if($dbCon->error){
+			if ($dbCon->error) {
 				throw new \Exception($dbCon->error);
 			}
 			return $group;
 		}
 
-		$retGroup = $group->fetch_object(Group::class);
+		$row = $group->fetch_assoc();
+		$retGroup = new Group();
+		$retGroup->id = $row['id'];
+		$retGroup->groupNumber = $row['groupNumber'];
+		$retGroup->repositoryURL = $row['repositoryURL'];
 
 		return $retGroup;
 	}
@@ -122,19 +131,35 @@ class Group
 	public function findGroupByNumber()
 	{
 		$dbCon = $this->db->getConnection();
-		$sql = "SELECT * FROM `Groups` WHERE groupNumber = ".$dbCon->real_escape_string($this->getGroupNumber());
+		$sql = "SELECT * FROM `Groups` WHERE groupNumber = " . $dbCon->real_escape_string($this->getGroupNumber());
 		$group = $dbCon->query($sql);
 
 		if (!$group) {
-			if($dbCon->error){
+			if ($dbCon->error) {
 				throw new \Exception($dbCon->error);
 			}
 			return $group;
 		}
 
-		$retGroup = $group->fetch_object(Group::class);
+		$row = $group->fetch_assoc();
+		$retGroup = new Group();
+		$retGroup->id = $row['id'];
+		$retGroup->groupNumber = $row['groupNumber'];
+		$retGroup->repositoryURL = $row['repositoryURL'];
 
 		return $retGroup;
+	}
+
+	public function __set($name, $value)
+	{
+		// cannot change an id that's already set
+		if ($name === 'id' && $this->id !== null) {
+			throw new \InvalidArgumentException("id of group object cannot be modified");
+		}
+
+		// TODO log changes
+		// otherwise, go for it
+		$this->$name = $value;
 	}
 
 	public function getID(): int
@@ -147,18 +172,17 @@ class Group
 		return $this->groupNumber ?? 0;
 	}
 
-	public function setGroupNumber(int $number)
-	{
-		$this->groupNumber = $number;
-	}
-
 	public function getRepositoryURL(): string
 	{
-		return $this->repositoryURL ?? '';
+		return urldecode($this->repositoryURL) ?? '';
 	}
 
-	public function setRepositoryURL(string $URL)
+	public function jsonSerialize()
 	{
-		$this->repositoryURL = $URL;
+		return [
+			'id' => $this->getID(),
+			'group_number' => $this->getGroupNumber(),
+			'repo_url' => $this->getRepositoryURL(),
+		];
 	}
 }
