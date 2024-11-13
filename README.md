@@ -36,7 +36,7 @@ These are the materials for my web development course at ECC for workforce devel
 - `git add .`: will stage the changes in *all files* to be committed
 - `git commit -am "this is where you message goes"`: will stage and commit all files that are currently tracked by git
 - `git branch --merged <main-branch-name> | grep -v '<main-branch-name>$' | xargs git branch -d` this allows you to safely delete all branches that have been merged into what ever branch you supply as `<main-branch-name>`; see the example below.
-  - NOTE: I recommend adding this as an alias (`vim ~/.bashrc` or whereever you keep aliases) in the form of `alias pruneBranches='git branch --merged "$1" | grep -v "$1$" | xargs git branch -d"`. You can then call it with `pruneBranches main`. This is safe for almost any git setup whether its GitHub, Bitbucket, GitLab or any others.
+  - NOTE: I recommend adding this as an alias (`vim ~/.bashrc` or whereever you keep aliases) in the form of `alias pruneBranches='git branch --merged "$1" | grep -v "^$1$" | xargs git branch -d"`. You can then call it with `pruneBranches main`. This is safe for almost any git setup whether its GitHub, Bitbucket, GitLab or any others.
 
 ## Git Workflow
 
